@@ -1,0 +1,32 @@
+[
+    {
+        "model": "apis.station",
+        "pk": 3,
+        "fields": {
+            "short_name": "B32006",
+            "name": "Colleges of the Fenway - Fenway at Avenue Louis Pasteur",
+            "lat": 42.34011512249236,
+            "lon": -71.10061883926392,
+            "region": 10,
+            "capacity": 15,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": true,
+            "has_kiosk": true
+        } 
+    },
+    {
+        "model": "apis.station",
+        "pk": 4,
+        "fields": {
+            "short_name": "C32000",
+            "name": "Tremont St at E Berkeley St",
+            "lat": 42.345392,
+            "lon": -71.069616,
+            "region": 10,
+            "capacity": 19,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": false,
+            "has_kiosk": true
+        }
+    }
+  ]
