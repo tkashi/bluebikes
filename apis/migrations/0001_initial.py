@@ -49,6 +49,8 @@ class Migration(migrations.Migration):
                 ('duration', models.IntegerField()),
                 ('start_time', models.DateTimeField()),
                 ('stop_time', models.DateTimeField()),
+                ('start_date', models.DateField()),
+                ('stop_date', models.DateField()),
                 ('bike_id', models.IntegerField()),
                 ('is_subscriber', models.BooleanField()),
                 ('birth_year', models.IntegerField(null=True)),

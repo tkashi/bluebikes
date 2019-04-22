@@ -38,10 +38,18 @@ class Trip(models.Model):
     duration = models.IntegerField()
     start_time = models.DateTimeField()
     stop_time = models.DateTimeField()
+    start_date = models.DateField()
+    stop_date = models.DateField()
     start_station = models.ForeignKey(Station, on_delete=models.DO_NOTHING, related_name='start_station_id')
     stop_station = models.ForeignKey(Station, on_delete=models.DO_NOTHING, related_name='stop_station_id')
     bike_id = models.IntegerField()
     is_subscriber = models.BooleanField()
     birth_year = models.IntegerField(null=True)
     gender = models.IntegerField()
+
+    def save(self, *args, **kwargs):
+        self.start_date = self.start_time.date()
+        self.stop_date = self.stop_time.date()
+        return super(Trip, self).save(*args, **kwargs)
+
     

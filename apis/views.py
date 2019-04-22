@@ -7,7 +7,7 @@ from django.db.models import Count, Max, Min, Sum, Avg
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.filters import SearchFilter, OrderingFilter
-from django_filters.rest_framework import FilterSet, NumberFilter, DateTimeFilter, DjangoFilterBackend
+from django_filters.rest_framework import FilterSet, NumberFilter, DateFilter, DateTimeFilter, DjangoFilterBackend
 from .models import Station, Trip
 from .serializers import StationSerializer, TripSerializer, TripSummarySerializer
 
@@ -34,6 +34,10 @@ class TripFilter(FilterSet):
     start_time_lt = DateTimeFilter(field_name='start_time', lookup_expr='lt')
     stop_time_gt = DateTimeFilter(field_name='stop_time', lookup_expr='gt')
     stop_time_lt = DateTimeFilter(field_name='stop_time', lookup_expr='lt')
+    start_date_gt = DateFilter(field_name='start_date', lookup_expr='gt')
+    start_date_lt = DateFilter(field_name='start_date', lookup_expr='lt')
+    stop_date_gt = DateFilter(field_name='stop_date', lookup_expr='gt')
+    stop_date_lt = DateFilter(field_name='stop_date', lookup_expr='lt')
     birth_year_gt = NumberFilter(name='birth_year', lookup_expr='gt')
     birth_year_lt = NumberFilter(name='birth_year', lookup_expr='lt')
 
