@@ -16,16 +16,17 @@
     },
     {
         "model": "apis.station",
-        "pk": 4,
+        "pk": 67,
         "fields": {
-            "short_name": "C32000",
-            "name": "Tremont St at E Berkeley St",
-            "lat": 42.345392,
-            "lon": -71.069616,
-            "region": 10,
-            "capacity": 19,
+            "station_id": 67,
+            "short_name": "M32006",
+            "name": "MIT at Mass Ave / Amherst St",
+            "lat": 42.3581,
+            "lon": -71.093198,
+            "region": 8,
+            "capacity": 27,
             "electric_bike_surcharge_waiver": false,
-            "eightd_has_key_dispenser": false,
+            "eightd_has_key_dispenser": true,
             "has_kiosk": true
         }
     }

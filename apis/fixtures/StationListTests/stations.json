@@ -1,0 +1,338 @@
+[
+    {
+        "model": "apis.station",
+        "pk": 3,
+        "fields": {
+            "station_id": 3,
+            "short_name": "B32006",
+            "name": "Colleges of the Fenway - Fenway at Avenue Louis Pasteur",
+            "lat": 42.34011512249236,
+            "lon": -71.10061883926392,
+            "region": 10,
+            "capacity": 15,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": true,
+            "has_kiosk": true
+        } 
+    },
+    {
+        "model": "apis.station",
+        "pk": 4,
+        "fields": {
+            "station_id": 4,
+            "short_name": "C32000",
+            "name": "Tremont St at E Berkeley St",
+            "lat": 42.345392,
+            "lon": -71.069616,
+            "region": 10,
+            "capacity": 19,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": false,
+            "has_kiosk": true
+        }
+    },
+    {
+        "model": "apis.station",
+        "pk": 5,
+        "fields": {
+            "station_id": 5,
+            "short_name": "B32012",
+            "name": "Northeastern University - North Parking Lot",
+            "lat": 42.341814,
+            "lon": -71.090179,
+            "region": 10,
+            "capacity": 15,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": false,
+            "has_kiosk": true
+        }
+    },
+    {
+        "model": "apis.station",
+        "pk": 6,
+        "fields": {
+            "station_id": 6,
+            "short_name": "D32000",
+            "name": "Cambridge St at Joy St",
+            "lat": 42.36121165307985,
+            "lon": -71.06530619789737,
+            "region": 10,
+            "capacity": 15,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": false,
+            "has_kiosk": true
+        }
+    },
+    {
+        "model": "apis.station",
+        "pk": 7,
+        "fields": {
+            "station_id": 7,
+            "short_name": "A32000",
+            "name": "Fan Pier",
+            "lat": 42.3533905070523,
+            "lon": -71.04457139968872,
+            "region": 10,
+            "capacity": 15,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": false,
+            "has_kiosk": true
+        }
+    },
+    {
+        "model": "apis.station",
+        "pk": 8,
+        "fields": {
+            "station_id": 8,
+            "short_name": "A32001",
+            "name": "Union Square - Brighton Ave at Cambridge St",
+            "lat": 42.353334,
+            "lon": -71.137313,
+            "region": 10,
+            "capacity": 19,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": false,
+            "has_kiosk": true
+        }
+    },
+    {
+        "model": "apis.station",
+        "pk": 9,
+        "fields": {
+            "station_id": 9,
+            "short_name": "A32002",
+            "name": "Commonwealth Ave at Agganis Way",
+            "lat": 42.35169201885973,
+            "lon": -71.11903488636017,
+            "region": 10,
+            "capacity": 15,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": false,
+            "has_kiosk": true
+        }
+    },
+    {
+        "model": "apis.station",
+        "pk": 10,
+        "fields": {
+        "station_id": 10,
+            "short_name": "A32003",
+            "name": "B.U. Central - 725 Comm. Ave.",
+            "lat": 42.350406,
+            "lon": -71.108279,
+            "region": 10,
+            "capacity": 11,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": false,
+            "has_kiosk": true
+        }
+    },
+    {
+        "model": "apis.station",
+        "pk": 11,
+        "fields": {
+            "station_id": 11,
+            "short_name": "A32004",
+            "name": "Longwood Ave at Binney St",
+            "lat": 42.338629,
+            "lon": -71.1065,
+            "region": 10,
+            "capacity": 15,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": false,
+            "has_kiosk": true
+        }
+    },
+    {
+        "model": "apis.station",
+        "pk": 12,
+        "fields": {
+            "station_id": 12,
+            "short_name": "B32002",
+            "name": "Ruggles T Stop - Columbus Ave at Melnea Cass Blvd",
+            "lat": 42.33624444796878,
+            "lon": -71.08798563480377,
+            "region": 10,
+            "capacity": 18,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": true,
+            "has_kiosk": true
+        }
+    },
+    {
+        "model": "apis.station",
+        "pk": 13,
+        "fields": {
+            "station_id": 13,
+            "short_name": "C32002",
+            "name": "Boston Medical Center - E Concord St at Harrison Ave",
+            "lat": 42.33671641210506,
+            "lon": -71.06880776602338,
+            "region": 10,
+            "capacity": 15,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": false,
+            "has_kiosk": true
+        }
+    },
+    {
+        "model": "apis.station",
+        "pk": 14,
+        "fields": {
+            "station_id": 14,
+            "short_name": "B32003",
+            "name": "HMS/HSPH - Avenue Louis Pasteur at Longwood Ave",
+            "lat": 42.3374174845973,
+            "lon": -71.10286116600037,
+            "region": 10,
+            "capacity": 21,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": false,
+            "has_kiosk": true
+        }
+    },
+    {
+        "model": "apis.station",
+        "pk": 15,
+        "fields": {
+            "station_id": 15,
+            "short_name": "A32005",
+            "name": "Brighton Mills - 370 Western Ave",
+            "lat": 42.3615457081725,
+            "lon": -71.13776206970215,
+            "region": 10,
+            "capacity": 15,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": false,
+            "has_kiosk": true
+        }
+    },
+    {
+        "model": "apis.station",
+        "pk": 16,
+        "fields": {
+            "station_id": 16,
+            "short_name": "C32003",
+            "name": "Back Bay T Stop - Dartmouth St at Stuart St",
+            "lat": 42.34807412317439,
+            "lon": -71.07657015323639,
+            "region": 10,
+            "capacity": 19,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": true,
+            "has_kiosk": true
+        }
+    },
+    {
+        "model": "apis.station",
+        "pk": 17,
+        "fields": {
+            "station_id": 17,
+            "short_name": "A32006",
+            "name": "Soldiers Field Park - 111 Western Ave",
+            "lat": 42.364263440638524,
+            "lon": -71.1182756971175,
+            "region": 10,
+            "capacity": 15,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": false,
+            "has_kiosk": true
+        }
+    },
+    {
+        "model": "apis.station",
+        "pk": 19,
+        "fields": {
+            "station_id": 19,
+            "short_name": "A32008",
+            "name": "Park Dr at Buswell St",
+            "lat": 42.347241,
+            "lon": -71.105301,
+            "region": 10,
+            "capacity": 15,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": false,
+            "has_kiosk": true
+        }
+    },
+    {
+        "model": "apis.station",
+        "pk": 20,
+        "fields": {
+            "station_id": 20,
+            "short_name": "B32004",
+            "name": "Aquarium T Stop - 200 Atlantic Ave",
+            "lat": 42.35991176110118,
+            "lon": -71.0514298081398,
+            "region": 10,
+            "capacity": 23,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": true,
+            "has_kiosk": true
+        }
+    },
+    {
+        "model": "apis.station",
+        "pk": 21,
+        "fields": {
+            "station_id": 21,
+            "short_name": "C32007",
+            "name": "Prudential Center - Belvedere St",
+            "lat": 42.34652003998412,
+            "lon": -71.08065776545118,
+            "region": 10,
+            "capacity": 18,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": true,
+            "has_kiosk": true
+        }
+    },
+    {
+        "model": "apis.station",
+        "pk": 22,
+        "fields": {
+            "station_id": 22,
+            "short_name": "A32010",
+            "name": "South Station - 700 Atlantic Ave",
+            "lat": 42.352175,
+            "lon": -71.055547,
+            "region": 10,
+            "capacity": 47,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": true,
+            "has_kiosk": true
+        }
+    },
+    {
+        "model": "apis.station",
+        "pk": 23,
+        "fields": {
+            "station_id": 23,
+            "short_name": "B32008",
+            "name": "Boston City Hall - 28 State St",
+            "lat": 42.35892,
+            "lon": -71.057629,
+            "region": 10,
+            "capacity": 21,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": true,
+            "has_kiosk": true
+        }
+    },
+    {
+        "model": "apis.station",
+        "pk": 24,
+        "fields": {
+            "station_id": 24,
+            "short_name": "B32007",
+            "name": "Seaport Square - Seaport Blvd at Northern Ave",
+            "lat": 42.35148193460858,
+            "lon": -71.04436084628105,
+            "region": 10,
+            "capacity": 19,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": false,
+            "has_kiosk": true
+        }
+    }
+  ]
