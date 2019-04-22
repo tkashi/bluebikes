@@ -60,6 +60,7 @@ python manage.py test
 * [Django](https://www.djangoproject.com/) - The high-level Python Web framework
 * [Django REST framework](https://www.django-rest-framework.org/) - The toolkit for building Web APIs
 * [django-filter](https://django-filter.readthedocs.io) - The toolkit to alleviate writing some of the more mundane bits of view code
+* [drf-dynamic-fields](https://github.com/dbrgn/drf-dynamic-fields) - a mixin to dynamically limit the fields per serializer to a subset specified by an URL parameter
 
 * [jQuery](https://jquery.com/) - The JavaScript library to make client development much simpler with an easy-to-use API
 * [d3.js](https://d3js.org/) - The JavaScript library for manipulating documents based on data
