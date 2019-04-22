@@ -2,12 +2,14 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
+from django.db.models import Count, Max, Min, Sum, Avg
 
 from rest_framework import viewsets
+from rest_framework.response import Response
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import FilterSet, NumberFilter, DateTimeFilter, DjangoFilterBackend
 from .models import Station, Trip
-from .serializers import StationSerializer, TripSerializer
+from .serializers import StationSerializer, TripSerializer, TripSummarySerializer
 
 # Create your views here.
 class StationFilter(FilterSet):
@@ -44,3 +46,32 @@ class TripViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = TripSerializer
     filter_backends = (OrderingFilter, DjangoFilterBackend,)
     filter_class = TripFilter
+
+ANNODATIONS_DEFS = {
+    'max' : Max,
+    'min' : Min,
+    'avg' : Avg,
+    'sum' : Sum,
+}
+
+class TripSummaryViewSet(viewsets.ReadOnlyModelViewSet):
+    filter_class = TripFilter
+    queryset = Trip.objects.all()
+    serializer_class = TripSummarySerializer
+    pagination_class=None
+
+    def get_queryset(self):
+        query_params = self.request.query_params
+        group_by = str(query_params.get('group_by'))
+        field = str(query_params.get('field'))
+        aggs = query_params.get('agg', 'count')
+        
+        annotations = {}
+
+        for agg in aggs.split(','):
+            if agg == 'count':
+                annotations['count'] = Count(group_by)
+            else:
+                annotations[agg] = ANNODATIONS_DEFS[agg](field)
+
+        return self.queryset.values(group_by).annotate(**annotations)
