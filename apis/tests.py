@@ -53,8 +53,8 @@ class StationDetailTests(APITestCase):
         })
 
 
-    def test_get_station_detail_with_fields_exclude_filter(self):
-        response = self.client.get('/apis/stations/3/', {'fields_exclude': 'station_id,short_name'}, format='json')
+    def test_get_station_detail_with_omit_filter(self):
+        response = self.client.get('/apis/stations/3/', {'omit': 'station_id,short_name'}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, { 
             "name": "Colleges of the Fenway - Fenway at Avenue Louis Pasteur",
@@ -68,9 +68,9 @@ class StationDetailTests(APITestCase):
         })
 
     
-    # if one field is specified by 'fields' and 'fields_exclude', then it should be excluded
-    def test_get_station_detail_with_both_fields_exclude_and_fields_filter(self):
-        response = self.client.get('/apis/stations/3/', {'fields': 'station_id,short_name', 'fields_exclude': 'station_id'}, format='json')
+    # if one field is specified by 'fields' and 'omit', then it should be excluded
+    def test_get_station_detail_with_both_omit_and_fields_filter(self):
+        response = self.client.get('/apis/stations/3/', {'fields': 'station_id,short_name', 'omit': 'station_id'}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, { 
             "short_name": "B32006"
@@ -196,17 +196,17 @@ class StationListTests(APITestCase):
             self.assertEqual(results[i].keys(), ['station_id', 'short_name'])
     
 
-    def test_get_stations_with_fields_exclude_filter(self):
-        response = self.client.get('/apis/stations/', {'fields_exclude': 'station_id,short_name'}, format='json')
+    def test_get_stations_with_omit_filter(self):
+        response = self.client.get('/apis/stations/', {'omit': 'station_id,short_name'}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         results = response.data['results']
         for i in range(len(results)):
             self.assertEqual(results[i].keys(), ['name', 'lat', 'lon', 'region', 'capacity', 'electric_bike_surcharge_waiver', 'eightd_has_key_dispenser', 'has_kiosk'])
 
     
-    # if one field is specified by 'fields' and 'fields_exclude', then it should be excluded
-    def test_get_station_s_with_both_fields_exclude_and_fields_filter(self):
-        response = self.client.get('/apis/stations/', {'fields': 'station_id,short_name', 'fields_exclude': 'station_id'}, format='json')
+    # if one field is specified by 'fields' and 'omit', then it should be excluded
+    def test_get_station_s_with_both_omit_and_fields_filter(self):
+        response = self.client.get('/apis/stations/', {'fields': 'station_id,short_name', 'omit': 'station_id'}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         results = response.data['results']
         for i in range(len(results)):
