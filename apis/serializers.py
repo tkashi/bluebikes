@@ -42,9 +42,7 @@ class TripSummarySerializer(serializers.ModelSerializer):
         fields['group_by'] = existing_fields[group_by]
 
         return fields
-
-    # def to_representation(self, obj):
-    #     return { key: 10 if key == 'count' else obj[key] for key in self.fields }
+   
 
     class Meta:
         model = Trip
