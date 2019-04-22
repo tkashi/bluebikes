@@ -40,6 +40,8 @@ class TripFilter(FilterSet):
     stop_date_lt = DateFilter(field_name='stop_date', lookup_expr='lt')
     birth_year_gt = NumberFilter(name='birth_year', lookup_expr='gt')
     birth_year_lt = NumberFilter(name='birth_year', lookup_expr='lt')
+    duration_gt = NumberFilter(name='duration', lookup_expr='gt')
+    duration_lt = NumberFilter(name='duration', lookup_expr='lt')
 
     class Meta:
         model = Trip
