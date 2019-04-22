@@ -13,7 +13,7 @@ class FieldsFilterMixin(object):
         query_params = self.context['request'].query_params
 
         fields = query_params.get('fields')
-        includes = set(existing_fields.keys()) if not fields else set(fields.split(','))
+        includes = set(existing_fields.keys()) if fields is None else set(fields.split(','))
             
         excludes = query_params.get('fields_exclude')
         if excludes:
