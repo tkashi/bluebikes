@@ -30,7 +30,7 @@ class StationSerializer(FieldsFilterMixin, serializers.ModelSerializer):
 
     class Meta:
         model = Station
-        fields = ('short_name', 'name', 'lat', 'lon', 'region', 'capacity', 'electric_bike_surcharge_waiver', 'eightd_has_key_dispenser', 'has_kiosk')
+        fields = ('station_id', 'short_name', 'name', 'lat', 'lon', 'region', 'capacity', 'electric_bike_surcharge_waiver', 'eightd_has_key_dispenser', 'has_kiosk')
 
 
 class TripSerializer(FieldsFilterMixin, serializers.ModelSerializer):
