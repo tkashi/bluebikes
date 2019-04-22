@@ -16,5 +16,6 @@ Including another URLconf
 from django.conf.urls import url, include
 
 urlpatterns = [
-    url(r'^', include('apis.urls')),
+    url(r'^apis/', include('apis.urls')),
+    url(r'^dashboards/', include('dashboards.urls')),
 ]
