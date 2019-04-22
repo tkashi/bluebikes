@@ -7,6 +7,7 @@ from django.db.models import Count, Max, Min, Sum, Avg
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.exceptions import APIException
 from django_filters.rest_framework import FilterSet, NumberFilter, DateFilter, DateTimeFilter, DjangoFilterBackend
 from .models import Station, Trip
 from .serializers import StationSerializer, TripSerializer, TripSummarySerializer
@@ -54,6 +55,7 @@ class TripViewSet(viewsets.ReadOnlyModelViewSet):
     filter_class = TripFilter
 
 ANNODATIONS_DEFS = {
+    'count': lambda field: Count('pk'),
     'max' : Max,
     'min' : Min,
     'avg' : Avg,
@@ -68,16 +70,19 @@ class TripSummaryViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         query_params = self.request.query_params
-        group_by = str(query_params.get('group_by'))
+        group_by = query_params.get('group_by')
+
+        if group_by is None:
+            e = APIException("The request parameter 'group_by' is required.")
+            e.status_code = 400
+            raise e
+
         field = str(query_params.get('field'))
         aggs = query_params.get('agg', 'count')
         
         annotations = {}
 
         for agg in aggs.split(','):
-            if agg == 'count':
-                annotations['count'] = Count(group_by)
-            else:
-                annotations[agg] = ANNODATIONS_DEFS[agg](field)
-
-        return self.queryset.values(group_by).annotate(**annotations)
+            annotations[agg] = ANNODATIONS_DEFS[agg](field)
+        
+        return self.queryset.values(str(group_by)).annotate(**annotations)
