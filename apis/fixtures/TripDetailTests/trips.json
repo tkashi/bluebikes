@@ -1,0 +1,38 @@
+[
+    {
+        "model": "apis.trip",
+        "pk": 314,
+        "fields": {
+            "id": 314,
+            "start_station": 3,
+            "stop_station": 14,
+            "duration": 93,
+            "start_time": "2019-03-01T07:58:21.278000-05:00",
+            "stop_time": "2019-03-01T07:59:54.886000-05:00",
+            "start_date": "2019-03-01",
+            "stop_date": "2019-03-01",
+            "bike_id": 2885,
+            "is_subscriber": true,
+            "birth_year": 1986,
+            "gender": 1
+        }
+    },
+    {
+        "model": "apis.trip",
+        "pk": 182,
+        "fields": {
+            "id": 182,
+            "start_station": 4,
+            "stop_station": 6,
+            "duration": 996,
+            "start_time": "2019-03-01T07:24:25.863000-05:00",
+            "stop_time": "2019-03-01T07:41:02.063000-05:00",
+            "start_date": "2019-03-01",
+            "stop_date": "2019-03-01",
+            "bike_id": 4404,
+            "is_subscriber": true,
+            "birth_year": 1990,
+            "gender": 2
+        }
+    }
+]
