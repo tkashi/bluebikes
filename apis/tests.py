@@ -462,3 +462,375 @@ class TripDetailTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, {})
 
+
+class TripListTests(APITestCase):
+    fixtures = ['TripListTests/stations', 'TripListTests/trips']
+
+    IDS_AT_FIRST_PAGE = [175, 522, 575, 787, 931, 1582, 1602, 1950, 2186, 3255]
+    IDS_AT_SECOND_PAGE = [3940, 4377, 4378, 4688, 4690, 5303, 5304, 6938, 7394, 7770]
+
+    def test_get_trips(self):
+        response = self.client.get('/apis/trips/', format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 21)
+        self.assertEqual(response.data['next'], 'http://testserver/apis/trips/?page=2')
+        self.assertIsNone(response.data['previous'])
+
+        results = response.data['results']
+        self.assertEqual(len(results), 10)
+
+        # check all fields for only first element
+        self.assertEqual(results[0], {
+            "id": 175,
+			"start_station": {
+                "station_id": 190,
+                "short_name": "A32025",
+                "name": "Nashua Street at Red Auerbach Way",
+                "lat": 42.365673,
+                "lon": -71.064263,
+                "region": 'Boston',
+                "capacity": 37,
+                "electric_bike_surcharge_waiver": False,
+                "eightd_has_key_dispenser": True,
+                "has_kiosk": True
+            },
+			"stop_station": {
+                "station_id": 3,
+                "short_name": "B32006",
+                "name": "Colleges of the Fenway - Fenway at Avenue Louis Pasteur",
+                "lat": 42.34011512249236,
+                "lon": -71.10061883926392,
+                "region": 'Boston',
+                "capacity": 15,
+                "electric_bike_surcharge_waiver": False,
+                "eightd_has_key_dispenser": True,
+                "has_kiosk": True
+            },
+			"duration": 1171,
+			"start_time": "2019-03-01T07:22:57.543000-05:00",
+			"stop_time": "2019-03-01T07:42:29.141000-05:00",
+			"start_date": "2019-03-01",
+			"stop_date": "2019-03-01",
+			"bike_id": 3571,
+			"is_subscriber": True,
+			"birth_year": 1984,
+			"gender": 1
+        })
+
+        # check only ids for all elements
+        self.assertEqual([t['id'] for t in results], self.IDS_AT_FIRST_PAGE)
+
+
+    def test_get_trips_next_page(self):
+        response = self.client.get('/apis/trips/?page=2', format='json')
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 21)
+        self.assertEqual(response.data['next'], 'http://testserver/apis/trips/?page=3')
+        self.assertEqual(response.data['previous'], 'http://testserver/apis/trips/')
+
+        results = response.data['results']
+        self.assertEqual(len(results), 10)
+
+        # check all fields for only first element
+        self.assertEqual(results[0], {
+            "id": 3940,
+			"start_station": {
+                "station_id": 14,
+                "short_name": "B32003",
+                "name": "HMS/HSPH - Avenue Louis Pasteur at Longwood Ave",
+                "lat": 42.3374174845973,
+                "lon": -71.10286116600037,
+                "region": 'Boston',
+                "capacity": 21,
+                "electric_bike_surcharge_waiver": False,
+                "eightd_has_key_dispenser": False,
+                "has_kiosk": True
+            },
+			"stop_station": {
+                "station_id": 3,
+                "short_name": "B32006",
+                "name": "Colleges of the Fenway - Fenway at Avenue Louis Pasteur",
+                "lat": 42.34011512249236,
+                "lon": -71.10061883926392,
+                "region": 'Boston',
+                "capacity": 15,
+                "electric_bike_surcharge_waiver": False,
+                "eightd_has_key_dispenser": True,
+                "has_kiosk": True
+            },
+			"duration": 105,
+			"start_time": "2019-03-02T21:30:19.229000-05:00",
+			"stop_time": "2019-03-02T21:32:04.951000-05:00",
+			"start_date": "2019-03-02",
+			"stop_date": "2019-03-02",
+			"bike_id": 2644,
+			"is_subscriber": True,
+			"birth_year": 1986,
+			"gender": 1
+        })
+
+        # check only ids for all elements
+        self.assertEqual([t['id'] for t in results], self.IDS_AT_SECOND_PAGE)
+
+
+    def test_get_trips_last_page(self):
+        response = self.client.get('/apis/trips/?page=3', format='json')
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 21)
+        self.assertIsNone(response.data['next'])
+        self.assertEqual(response.data['previous'], 'http://testserver/apis/trips/?page=2')
+
+        results = response.data['results']
+        self.assertEqual(len(results), 1)
+
+        # check all fields for only first element
+        self.assertEqual(results[0], {
+            "id": 7983,
+			"start_station": {
+			    "station_id": 12,
+                "short_name": "B32002",
+                "name": "Ruggles T Stop - Columbus Ave at Melnea Cass Blvd",
+                "lat": 42.33624444796878,
+                "lon": -71.08798563480377,
+                "region": 'Boston',
+                "capacity": 18,
+                "electric_bike_surcharge_waiver": False,
+                "eightd_has_key_dispenser": True,
+                "has_kiosk": True
+            },
+			"stop_station": {
+                "station_id": 3,
+                "short_name": "B32006",
+                "name": "Colleges of the Fenway - Fenway at Avenue Louis Pasteur",
+                "lat": 42.34011512249236,
+                "lon": -71.10061883926392,
+                "region": 'Boston',
+                "capacity": 15,
+                "electric_bike_surcharge_waiver": False,
+                "eightd_has_key_dispenser": True,
+                "has_kiosk": True
+            },
+			"duration": 348,
+			"start_time": "2019-03-05T10:18:50.611000-05:00",
+			"stop_time": "2019-03-05T10:24:39.046000-05:00",
+			"start_date": "2019-03-05",
+			"stop_date": "2019-03-05",
+			"bike_id": 2678,
+			"is_subscriber": True,
+			"birth_year": 1993,
+			"gender": 1
+        })
+
+
+    def test_get_trips_with_fields_filter(self):
+        response = self.client.get('/apis/trips/', {'fields': 'id'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        results = response.data['results']
+        for i in range(len(results)):
+            self.assertEqual(results[i], { "id": self.IDS_AT_FIRST_PAGE[i] })
+
+
+    def test_get_trips_with_multiple_fields_filter(self):
+        response = self.client.get('/apis/trips/', {'fields': 'id,duration'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        results = response.data['results']
+        for i in range(len(results)):
+            self.assertEqual(results[i].keys(), ['id', 'duration'])
+    
+
+    def test_get_trips_with_omit_filter(self):
+        response = self.client.get('/apis/trips/', {'omit': 'id,duration'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        results = response.data['results']
+        for i in range(len(results)):
+            self.assertEqual(results[i].keys(), ['start_station', 'stop_station', 'start_time', 'stop_time', 'start_date', 'stop_date', 'bike_id', 'is_subscriber', 'birth_year', 'gender'])
+
+    
+    # if one field is specified by 'fields' and 'omit', then it should be excluded
+    def test_get_station_s_with_both_omit_and_fields_filter(self):
+        response = self.client.get('/apis/trips/', {'fields': 'id,duration', 'omit': 'id'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        results = response.data['results']
+        for i in range(len(results)):
+            self.assertEqual(results[i].keys(), ['duration'])            
+
+
+    # empty string of fields_filter returns empty object
+    def test_get_trips_with_empty_fields_filter(self):
+        response = self.client.get('/apis/trips/', {'fields': ''}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        results = response.data['results']
+        for i in range(len(results)):
+            self.assertEqual(results[i], {})
+
+
+    # wrong fields of fields_filter are ignored (specifying only wrong fields filter is equal to specifying empty string)
+    def test_get_trips_with_wrong_fields_filter(self):
+        response = self.client.get('/apis/trips/', {'fields': 'wrong_field'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        results = response.data['results']
+        for i in range(len(results)):
+            self.assertEqual(results[i], {})
+
+
+    def test_get_trips_simple_filter(self):
+        response = self.client.get('/apis/trips/', {'is_subscriber': 'true'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 15)
+        self.assertEqual(response.data['next'], 'http://testserver/apis/trips/?is_subscriber=true&page=2')
+        self.assertIsNone(response.data['previous'])
+
+        results = response.data['results']
+        self.assertEqual(len(results), 10)
+
+        # check all fields for only first element
+        self.assertEqual(results[0], {
+            "id": 175,
+			"start_station": {
+                "station_id": 190,
+                "short_name": "A32025",
+                "name": "Nashua Street at Red Auerbach Way",
+                "lat": 42.365673,
+                "lon": -71.064263,
+                "region": 'Boston',
+                "capacity": 37,
+                "electric_bike_surcharge_waiver": False,
+                "eightd_has_key_dispenser": True,
+                "has_kiosk": True
+            },
+			"stop_station": {
+                "station_id": 3,
+                "short_name": "B32006",
+                "name": "Colleges of the Fenway - Fenway at Avenue Louis Pasteur",
+                "lat": 42.34011512249236,
+                "lon": -71.10061883926392,
+                "region": 'Boston',
+                "capacity": 15,
+                "electric_bike_surcharge_waiver": False,
+                "eightd_has_key_dispenser": True,
+                "has_kiosk": True
+            },
+			"duration": 1171,
+			"start_time": "2019-03-01T07:22:57.543000-05:00",
+			"stop_time": "2019-03-01T07:42:29.141000-05:00",
+			"start_date": "2019-03-01",
+			"stop_date": "2019-03-01",
+			"bike_id": 3571,
+			"is_subscriber": True,
+			"birth_year": 1984,
+			"gender": 1
+        })
+
+
+    def test_get_trips_start_date_filter(self):
+        response = self.client.get('/apis/trips/', {'start_date': '2019-03-04'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 1)
+
+
+    # gt doesn't include strict same date
+    def test_get_trips_start_date_gt_filter(self):
+        response = self.client.get('/apis/trips/', {'start_date_gt': '2019-03-04'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 3)
+
+    # lt doesn't include strict same date
+    def test_get_trips_start_date_lt_filter(self):
+        response = self.client.get('/apis/trips/', {'start_date_lt': '2019-03-04'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 17)
+    
+
+    def test_get_trips_stop_date_filter(self):
+        response = self.client.get('/apis/trips/', {'stop_date': '2019-03-04'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 1)
+
+
+    # gt doesn't include strict same date
+    def test_get_trips_stop_date_gt_filter(self):
+        response = self.client.get('/apis/trips/', {'stop_date_gt': '2019-03-04'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 3)
+
+    # lt doesn't include strict same date
+    def test_get_trips_stop_date_lt_filter(self):
+        response = self.client.get('/apis/trips/', {'stop_date_lt': '2019-03-04'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 17)
+      
+
+    def test_get_trips_birth_year_filter(self):
+        response = self.client.get('/apis/trips/', {'birth_year': 1990}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 2)
+
+
+    # gt doesn't include strict same year
+    def test_get_trips_birth_year_gt_filter(self):
+        response = self.client.get('/apis/trips/', {'birth_year_gt': 1990}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 12)
+
+    # lt doesn't include strict same year
+    def test_get_trips_birth_year_lt_filter(self):
+        response = self.client.get('/apis/trips/', {'birth_year_lt': 1990}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 7)
+    
+
+    def test_get_trips_duration_filter(self):
+        response = self.client.get('/apis/trips/', {'duration': 449}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 1)
+
+
+    # gt doesn't include strict same date
+    def test_get_trips_duration_gt_filter(self):
+        response = self.client.get('/apis/trips/', {'duration_gt': 449}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 17)
+
+    # lt doesn't include strict same date
+    def test_get_trips_duration_lt_filter(self):
+        response = self.client.get('/apis/trips/', {'duration_lt': 449}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 3)
+
+
+    def test_get_trips_start_time_gt_filter(self):
+        response = self.client.get('/apis/trips/', {'start_time_gt': '2019-03-04'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 4)
+
+
+    def test_get_trips_start_time_lt_filter(self):
+        response = self.client.get('/apis/trips/', {'start_time_lt': '2019-03-04'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 17)
+    
+
+    def test_get_trips_stop_time_gt_filter(self):
+        response = self.client.get('/apis/trips/', {'stop_time_gt': '2019-03-04'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 4)
+
+
+    def test_get_trips_stop_time_lt_filter(self):
+        response = self.client.get('/apis/trips/', {'stop_time_lt': '2019-03-04'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 17)
+
+
+    def test_get_trips_filter_not_found(self):
+        response = self.client.get('/apis/trips/', {'duration': 0}, format='json') # not existing station id
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 0)
+
+
+    def test_get_trips_multiple_filters(self):
+        response = self.client.get('/apis/trips/', {'start_date_gt': '2019-03-04', 'birth_year_gt': 1990}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 2)
