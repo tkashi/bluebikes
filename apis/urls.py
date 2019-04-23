@@ -5,7 +5,6 @@ from . import views
 router = DefaultRouter()
 router.register(r'stations', views.StationViewSet)
 router.register(r'trips', views.TripViewSet)
-router.register(r'tripsummary', views.TripSummaryViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

@@ -18,37 +18,3 @@ class TripSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
         model = Trip
         fields = '__all__' 
 
-class TripSummarySerializer(serializers.ModelSerializer):
-
-    def __init__(self, *args, **kwargs):
-        """
-        Initialize TripSummarySerializer. 
-        Generate fields depending on the request parameters 'agg' and 'field' so that the field names have both agg and field like 'max_duration'.
-        """
-
-        # Instantiate the superclass normally
-        super(TripSummarySerializer, self).__init__(*args, **kwargs)
-
-        if 'request' not in self.context:
-            return
-
-        query_params = self.context['request'].query_params
-        group_by = str(query_params.get('group_by'))
-        field = str(query_params.get('field'))
-    
-        aggs = query_params.get('agg', 'count').split(','); # multiple aggs can be specified by connecting comma (,)
-
-        for key in self.fields.keys():
-            if key != group_by:
-                self.fields.pop(key) # remove all fields except group_by field
-            
-        for agg in aggs:
-            name = agg
-            if agg != 'count':
-                name += '_' + field # concat aggregation function name and field to summarize
-
-            self.fields[name] = serializers.IntegerField() # add aggregation field
-
-    class Meta:
-        fields = '__all__'
-

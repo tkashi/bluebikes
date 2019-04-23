@@ -8,9 +8,10 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.exceptions import APIException
+from rest_framework.decorators import action
 from django_filters.rest_framework import FilterSet, NumberFilter, DateFilter, DateTimeFilter, DjangoFilterBackend
 from .models import Station, Trip
-from .serializers import StationSerializer, TripSerializer, TripSummarySerializer
+from .serializers import StationSerializer, TripSerializer
 
 # Create your views here.
 class StationFilter(FilterSet):
@@ -126,6 +127,15 @@ class TripFilter(FilterSet):
         model = Trip
         fields = '__all__'
 
+
+ANNODATIONS_DEFS = {
+    'max' : Max,
+    'min' : Min,
+    'avg' : Avg,
+    'sum' : Sum,
+}
+
+
 class TripViewSet(viewsets.ReadOnlyModelViewSet):
     """
     retrieve:
@@ -140,35 +150,6 @@ class TripViewSet(viewsets.ReadOnlyModelViewSet):
     filter_backends = (OrderingFilter, DjangoFilterBackend,)
     filter_class = TripFilter
 
-ANNODATIONS_DEFS = {
-    'max' : Max,
-    'min' : Min,
-    'avg' : Avg,
-    'sum' : Sum,
-}
-
-
-class TripSummaryViewSet(viewsets.ReadOnlyModelViewSet):
-    """
-    retrieve:
-    Return the summary of trips.
-
-    Parameters:
-    ----------
-    group_by: str
-        a field name of Trip to group
-    agg: str
-        aggregation function names (count, max, min, avg or sum). 
-    field: str
-        a field name of Trip to summarize
-
-    The fields of response depends on how you specify 'group_by', 'field', 'agg' request parameters.
-    """
-    filter_class = TripFilter
-    queryset = Trip.objects.all()
-    serializer_class = TripSummarySerializer
-    pagination_class=None
-
     def _raiseException(self, field):
         """
         Raise 400 exceptions for invalid or missing parameters
@@ -176,12 +157,29 @@ class TripSummaryViewSet(viewsets.ReadOnlyModelViewSet):
         e = APIException("The request parameter '{}' is required.".format(field))
         e.status_code = 400
         raise e
+        
 
-    def get_queryset(self):
+    @action(detail=False, methods=['get'])
+    def summary(self, request, *args, **kwargs):
         """
         Return queryset which holds aggregated results for specified aggregate functions and field which are grouped by the group_by field.
+    
+        retrieve:
+        Return the summary of trips.
+
+        Parameters:
+        ----------
+        group_by: str
+            a field name of Trip to group
+        agg: str
+            aggregation function names (count, max, min, avg or sum). 
+        field: str
+            a field name of Trip to summarize
+
+        The fields of response depends on how you specify 'group_by', 'field', 'agg' request parameters.
         """
-        query_params = self.request.query_params
+        
+        query_params = request.query_params
         group_by = query_params.get('group_by')
 
         if group_by is None:
@@ -202,4 +200,4 @@ class TripSummaryViewSet(viewsets.ReadOnlyModelViewSet):
                 
                 annotations[agg + '_' + str(field)] = ANNODATIONS_DEFS[agg](field)
         
-        return self.queryset.values(str(group_by)).annotate(**annotations)
+        return Response([e for e in self.queryset.values(str(group_by)).annotate(**annotations).iterator()])

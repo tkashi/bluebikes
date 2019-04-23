@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import datetime
+
 from django.test import TestCase
 
 # Create your tests here.
@@ -840,184 +842,184 @@ class TripSummaryTests(APITestCase):
     fixtures = ['TripSummaryTests/stations', 'TripSummaryTests/trips']
 
     def test_get_trip_summary_count(self):
-        response = self.client.get('/apis/tripsummary/', {'group_by': 'start_date', 'agg': 'count'}, format='json')
+        response = self.client.get('/apis/trips/summary/', {'group_by': 'start_date', 'agg': 'count'}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, [{
-            'start_date': '2019-03-01',
+            'start_date': datetime.date(2019, 3, 1),
             'count': 9
         }, {
-            'start_date': '2019-03-02',
+            'start_date': datetime.date(2019, 3, 2),
             'count': 2
         }, {
-            'start_date': '2019-03-03',
+            'start_date': datetime.date(2019, 3, 3),
             'count': 6
         }, {
-            'start_date': '2019-03-04',
+            'start_date': datetime.date(2019, 3, 4),
             'count': 1
         }, {
-            'start_date': '2019-03-05',
+            'start_date': datetime.date(2019, 3, 5),
             'count': 3
         }])
 
 
     # agg's default is count
     def test_get_trip_summary_not_specify_agg(self):
-        response = self.client.get('/apis/tripsummary/', {'group_by': 'start_date'}, format='json')
+        response = self.client.get('/apis/trips/summary/', {'group_by': 'start_date'}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, [{
-            'start_date': '2019-03-01',
+            'start_date': datetime.date(2019, 3, 1),
             'count': 9
         }, {
-            'start_date': '2019-03-02',
+            'start_date': datetime.date(2019, 3, 2),
             'count': 2
         }, {
-            'start_date': '2019-03-03',
+            'start_date': datetime.date(2019, 3, 3),
             'count': 6
         }, {
-            'start_date': '2019-03-04',
+            'start_date': datetime.date(2019, 3, 4),
             'count': 1
         }, {
-            'start_date': '2019-03-05',
+            'start_date': datetime.date(2019, 3, 5),
             'count': 3
         }])
     
     def test_get_trip_summary_max(self):
-        response = self.client.get('/apis/tripsummary/', {
+        response = self.client.get('/apis/trips/summary/', {
             'group_by': 'start_date', 
             'agg': 'max', 
             'field': 'duration'
         }, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, [{
-            'start_date': '2019-03-01',
+            'start_date': datetime.date(2019, 3, 1),
             'max_duration': 1674
         }, {
-            'start_date': '2019-03-02',
+            'start_date': datetime.date(2019, 3, 2),
             'max_duration': 316
         }, {
-            'start_date': '2019-03-03',
+            'start_date': datetime.date(2019, 3, 3),
             'max_duration': 4151
         }, {
-            'start_date': '2019-03-04',
+            'start_date': datetime.date(2019, 3, 4),
             'max_duration': 1092
         }, {
-            'start_date': '2019-03-05',
+            'start_date': datetime.date(2019, 3, 5),
             'max_duration': 1381
         }])
 
 
     def test_get_trip_summary_ave(self):
-        response = self.client.get('/apis/tripsummary/', {
+        response = self.client.get('/apis/trips/summary/', {
             'group_by': 'start_date', 
             'agg': 'avg', 
             'field': 'duration'
         }, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, [{
-            'start_date': '2019-03-01',
-            'avg_duration': 1086
+            'start_date': datetime.date(2019, 3, 1),
+            'avg_duration': 1086.4444444444443,
         }, {
-            'start_date': '2019-03-02',
-            'avg_duration': 210
+            'start_date': datetime.date(2019, 3, 2),
+            'avg_duration': 210.5
         }, {
-            'start_date': '2019-03-03',
-            'avg_duration': 2004
+            'start_date': datetime.date(2019, 3, 3),
+            'avg_duration': 2004.1666666666667
         }, {
-            'start_date': '2019-03-04',
+            'start_date': datetime.date(2019, 3, 4),
             'avg_duration': 1092
         }, {
-            'start_date': '2019-03-05',
+            'start_date': datetime.date(2019, 3, 5),
             'avg_duration': 784
         }])
 
 
     def test_get_trip_summary_min(self):
-        response = self.client.get('/apis/tripsummary/', {
+        response = self.client.get('/apis/trips/summary/', {
             'group_by': 'start_date', 
             'agg': 'min', 
             'field': 'duration'
         }, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, [{
-            'start_date': '2019-03-01',
+            'start_date': datetime.date(2019, 3, 1),
             'min_duration': 639
         }, {
-            'start_date': '2019-03-02',
+            'start_date': datetime.date(2019, 3, 2),
             'min_duration': 105
         }, {
-            'start_date': '2019-03-03',
+            'start_date': datetime.date(2019, 3, 3),
             'min_duration': 449
         }, {
-            'start_date': '2019-03-04',
+            'start_date': datetime.date(2019, 3, 4),
             'min_duration': 1092
         }, {
-            'start_date': '2019-03-05',
+            'start_date': datetime.date(2019, 3, 5),
             'min_duration': 348
         }])
 
             
     def test_get_trip_summary_sum(self):
-        response = self.client.get('/apis/tripsummary/', {
+        response = self.client.get('/apis/trips/summary/', {
             'group_by': 'start_date', 
             'agg': 'sum', 
             'field': 'duration'
         }, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, [{
-            'start_date': '2019-03-01',
+            'start_date': datetime.date(2019, 3, 1),
             'sum_duration': 9778
         }, {
-            'start_date': '2019-03-02',
+            'start_date': datetime.date(2019, 3, 2),
             'sum_duration': 421
         }, {
-            'start_date': '2019-03-03',
+            'start_date': datetime.date(2019, 3, 3),
             'sum_duration': 12025
         }, {
-            'start_date': '2019-03-04',
+            'start_date': datetime.date(2019, 3, 4),
             'sum_duration': 1092
         }, {
-            'start_date': '2019-03-05',
+            'start_date': datetime.date(2019, 3, 5),
             'sum_duration': 2352
         }])
     
 
     def test_get_trip_summary_multiple_agg(self):
-        response = self.client.get('/apis/tripsummary/', {
+        response = self.client.get('/apis/trips/summary/', {
             'group_by': 'start_date', 
             'agg': 'sum,count', 
             'field': 'duration'
         }, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, [{
-            'start_date': '2019-03-01',
+            'start_date': datetime.date(2019, 3, 1),
             'sum_duration': 9778,
             'count': 9
         }, {
-            'start_date': '2019-03-02',
+            'start_date': datetime.date(2019, 3, 2),
             'sum_duration': 421,
             'count': 2
         }, {
-            'start_date': '2019-03-03',
+            'start_date': datetime.date(2019, 3, 3),
             'sum_duration': 12025,
             'count': 6
         }, {
-            'start_date': '2019-03-04',
+            'start_date': datetime.date(2019, 3, 4),
             'sum_duration': 1092,
             'count': 1
         }, {
-            'start_date': '2019-03-05',
+            'start_date': datetime.date(2019, 3, 5),
             'sum_duration': 2352,
             'count': 3
         }])
 
     
     def test_get_trip_summary_missing_group_by(self):
-         response = self.client.get('/apis/tripsummary/', format='json')
+         response = self.client.get('/apis/trips/summary/', format='json')
          self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 
     def test_get_trip_summary_missing_field(self):
-         response = self.client.get('/apis/tripsummary/', {
+         response = self.client.get('/apis/trips/summary/', {
              'group_by': 'start_date',
              'agg': 'max'
          }, format='json')
