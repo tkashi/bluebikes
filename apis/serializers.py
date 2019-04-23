@@ -19,31 +19,33 @@ class TripSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
         fields = '__all__' 
 
 class TripSummarySerializer(serializers.ModelSerializer):
-    count = serializers.IntegerField()
-    max = serializers.IntegerField()
-    min = serializers.IntegerField()
-    avg = serializers.IntegerField()
-    sum = serializers.IntegerField()
 
-    @property
-    def fields(self):
-        existing_fields = super(TripSummarySerializer, self).fields
+    def __init__(self, *args, **kwargs):
+        # Instantiate the superclass normally
+        super(TripSummarySerializer, self).__init__(*args, **kwargs)
 
         if 'request' not in self.context:
-            return existing_fields
+            return
 
         query_params = self.context['request'].query_params
         group_by = str(query_params.get('group_by'))
-
+        field = str(query_params.get('field'))
+    
         aggs = query_params.get('agg', 'count').split(',');
 
-        fields = {agg: existing_fields[agg] for agg in aggs}
-                    
-        fields['group_by'] = existing_fields[group_by]
+        for key in self.fields.keys():
+            if key != group_by:
+                self.fields.pop(key)
+            
+        for agg in aggs:
+            name = agg
+            if agg != 'count':
+                name += '_' + field
 
-        return fields
+            self.fields[name] = serializers.IntegerField()
+
+        print(self.fields)
    
-
     class Meta:
         model = Trip
         fields = '__all__'

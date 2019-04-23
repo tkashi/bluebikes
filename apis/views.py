@@ -55,7 +55,6 @@ class TripViewSet(viewsets.ReadOnlyModelViewSet):
     filter_class = TripFilter
 
 ANNODATIONS_DEFS = {
-    'count': lambda field: Count('pk'),
     'max' : Max,
     'min' : Min,
     'avg' : Avg,
@@ -68,21 +67,30 @@ class TripSummaryViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = TripSummarySerializer
     pagination_class=None
 
+    def _raiseException(self, field):
+        e = APIException("The request parameter '{}' is required.".format(field))
+        e.status_code = 400
+        raise e
+
     def get_queryset(self):
         query_params = self.request.query_params
         group_by = query_params.get('group_by')
 
         if group_by is None:
-            e = APIException("The request parameter 'group_by' is required.")
-            e.status_code = 400
-            raise e
+            self._raiseException('group_by')
 
-        field = str(query_params.get('field'))
+        field = query_params.get('field')
         aggs = query_params.get('agg', 'count')
         
         annotations = {}
 
         for agg in aggs.split(','):
-            annotations[agg] = ANNODATIONS_DEFS[agg](field)
+            if agg == 'count':
+                annotations[agg] = Count('pk')
+            else:
+                if field is None:
+                    self._raiseException('field')
+                
+                annotations[agg + '_' + str(field)] = ANNODATIONS_DEFS[agg](field)
         
         return self.queryset.values(str(group_by)).annotate(**annotations)
