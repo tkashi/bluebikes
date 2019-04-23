@@ -13,6 +13,10 @@ def make_aware_datetime(datetime):
     return make_aware(parse_datetime(datetime))
 
 def import_data(sender, **kwargs):
+    """
+        Import trip history data from csv files.
+    """
+
     from .models import Station, Trip
 
     print('-- importing Trip data --')
@@ -45,5 +49,6 @@ class ApisConfig(AppConfig):
     name = 'apis'
 
     def ready(self):
+        # import trip data if it is not for a test
         if 'test' not in sys.argv:  
             post_migrate.connect(import_data, sender=self)

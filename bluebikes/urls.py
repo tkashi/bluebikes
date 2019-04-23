@@ -14,8 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
     url(r'^apis/', include('apis.urls')),
     url(r'^dashboards/', include('dashboards.urls')),
+    url(r'^docs/', include_docs_urls(title='BLUEBikes API docs', public=False))
 ]
