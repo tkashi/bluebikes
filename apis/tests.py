@@ -93,6 +93,146 @@ class StationDetailTests(APITestCase):
         self.assertEqual(response.data, {})
 
 
+    def test_create_station(self):
+        response = self.client.post('/apis/stations/', {
+            'station_id': 1000000,
+            'short_name': 'X00001',
+            'name': 'Test station',
+            'lat': 11.11111111,
+            'lon': -11.11111111,
+            'capacity': 100,
+            'electric_bike_surcharge_waiver': True,
+            'eightd_has_key_dispenser': False,
+            'has_kiosk': False,
+        }, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        station = Station.objects.get(pk=1000000)
+        self.assertEqual(station.station_id, 1000000)
+        self.assertEqual(station.short_name, 'X00001')
+        self.assertEqual(station.name, 'Test station')
+        self.assertEqual(station.lat, 11.11111111)
+        self.assertEqual(station.lon, -11.11111111)
+        self.assertEqual(station.capacity, 100)
+        self.assertTrue(station.electric_bike_surcharge_waiver)
+        self.assertFalse(station.eightd_has_key_dispenser)
+        self.assertFalse(station.has_kiosk)
+        
+    
+    def test_create_station_missing_fields(self):
+        response = self.client.post('/apis/stations/', {
+            'station_id': 1000002
+        }, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(set(response.data), set(['short_name', 'name', 'lat', 'lon', 'capacity']))
+
+
+    def test_create_station_invalid_fields(self):
+        response = self.client.post('/apis/stations/', {
+            'station_id': 1000002,
+            'short_name': 'X0000000000',
+            'name': 'a' + '0123456789' * 10,
+            'lat': 'a',
+            'lon': 'a',
+            'capacity': 0.5
+        }, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data, {
+            "lat": [
+                "A valid number is required."
+            ],
+            "lon": [
+                "A valid number is required."
+            ],
+            "capacity": [
+                "A valid integer is required."
+            ],
+            "name": [
+                "Ensure this field has no more than 100 characters."
+            ],
+            "short_name": [
+                "Ensure this field has no more than 6 characters."
+            ]
+        })
+
+
+    def test_update_station(self):
+        Station(station_id=1000003,
+            short_name='X00001',
+            name='Test station',
+            lat=11.11111111,
+            lon=-11.11111111,
+            capacity=100,
+            electric_bike_surcharge_waiver=True,
+            eightd_has_key_dispenser=False,
+            has_kiosk=False,
+        ).save()
+
+        response = self.client.put('/apis/stations/1000003/', {
+            'station_id': 1000003,
+            'short_name': 'X00002',
+            'name': 'Test station Updated',
+            'lat': 22.22222222,
+            'lon': -22.22222222,
+            'capacity': 200,
+            'electric_bike_surcharge_waiver': False,
+            'eightd_has_key_dispenser': True,
+            'has_kiosk': True,
+        }, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        print(response)
+
+        station = Station.objects.get(pk=1000003)
+        self.assertEqual(station.station_id, 1000003)
+        self.assertEqual(station.short_name, 'X00002')
+        self.assertEqual(station.name, 'Test station Updated')
+        self.assertEqual(station.lat, 22.22222222)
+        self.assertEqual(station.lon, -22.22222222)
+        self.assertEqual(station.capacity, 200)
+        self.assertFalse(station.electric_bike_surcharge_waiver)
+        self.assertTrue(station.eightd_has_key_dispenser)
+        self.assertTrue(station.has_kiosk)
+
+
+    def test_update_station_missing_fields(self):
+        Station(station_id=1000003,
+            short_name='X00001',
+            name='Test station',
+            lat=11.11111111,
+            lon=-11.11111111,
+            capacity=100,
+            electric_bike_surcharge_waiver=True,
+            eightd_has_key_dispenser=False,
+            has_kiosk=False,
+        ).save()
+        response = self.client.put('/apis/stations/1000003/', {'station_id': 1000003}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(set(response.data), set(['short_name', 'name', 'lat', 'lon', 'capacity']))
+
+
+    def test_create_station_invalid_fields(self):
+        Station(station_id=1000003,
+            short_name='X00001',
+            name='Test station',
+            lat=11.11111111,
+            lon=-11.11111111,
+            capacity=100,
+            electric_bike_surcharge_waiver=True,
+            eightd_has_key_dispenser=False,
+            has_kiosk=False,
+        ).save()
+        response = self.client.put('/apis/stations/1000003/', {
+            'station_id': 1000003,
+            'short_name': 'X0000000000',
+            'name': 'a' + '0123456789' * 10,
+            'lat': 'a',
+            'lon': 'a',
+            'capacity': 0.5
+        }, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(set(response.data), set(['short_name', 'name', 'lat', 'lon', 'capacity']))
+
+
 class StationListTests(APITestCase):
     fixtures = ['StationListTests/stations']
 
