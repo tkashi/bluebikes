@@ -162,17 +162,12 @@ class TripViewSet(viewsets.ReadOnlyModelViewSet):
     @action(detail=False, methods=['get'])
     def summary(self, request, *args, **kwargs):
         """
-        Return queryset which holds aggregated results for specified aggregate functions and field which are grouped by the group_by field.
-    
-        retrieve:
-        Return the summary of trips.
-
-        Parameters:
+        Return a summary of trip history using specified aggregate functions and field which are grouped by the group_by field.
         ----------
         group_by: str
-            a field name of Trip to group
+            a field name of Trip to be grouped
         agg: str
-            aggregation function names (count, max, min, avg or sum). 
+            aggregation function names (count, max, min, avg or sum). Specify multiple names with comma (,)
         field: str
             a field name of Trip to summarize
 
@@ -183,7 +178,7 @@ class TripViewSet(viewsets.ReadOnlyModelViewSet):
         group_by = query_params.get('group_by')
 
         if group_by is None:
-            self._raiseException('group_by')
+            self._raiseException('group_by') # group_by is required. So raise exception when not specified.
 
         field = query_params.get('field')
         aggs = query_params.get('agg', 'count') # default is count
