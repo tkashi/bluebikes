@@ -1164,3 +1164,48 @@ class TripSummaryTests(APITestCase):
              'agg': 'max'
          }, format='json')
          self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    
+    def test_get_trip_summary_with_filter(self):
+        response = self.client.get('/apis/trips/summary/', {
+            'group_by': 'start_date',
+            'is_subscriber': 'true'
+        }, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, [{
+            'start_date': datetime.date(2019, 3, 1),
+            'count': 7
+        }, {
+            'start_date': datetime.date(2019, 3, 2),
+            'count': 2
+        }, {
+            'start_date': datetime.date(2019, 3, 3),
+            'count': 3
+        }, {
+            'start_date': datetime.date(2019, 3, 4),
+            'count': 1
+        }, {
+            'start_date': datetime.date(2019, 3, 5),
+            'count': 2
+        }])
+
+    
+    def test_get_trip_summary_with_filter_group_by_field(self):
+        response = self.client.get('/apis/trips/summary/', {
+            'group_by': 'start_date',
+            'start_date': '2019-03-01'
+        }, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, [{
+            'start_date': datetime.date(2019, 3, 1),
+            'count': 9
+        }])
+
+
+    def test_get_trip_summary_with_filter_nothing_to_summarize(self):
+        response = self.client.get('/apis/trips/summary/', {
+            'group_by': 'start_date',
+            'start_date': '2020-03-01'
+        }, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, [])

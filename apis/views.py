@@ -211,4 +211,5 @@ class TripViewSet(viewsets.ReadOnlyModelViewSet):
                 
                 annotations[agg + '_' + str(field)] = ANNODATIONS_DEFS[agg](field)
         
-        return Response([e for e in self.queryset.values(str(group_by)).annotate(**annotations).iterator()])
+        queryset = self.filter_queryset(self.queryset)
+        return Response([e for e in queryset.values(str(group_by)).annotate(**annotations).iterator()])
