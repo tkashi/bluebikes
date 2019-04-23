@@ -6,7 +6,7 @@ from django.db.models import Count, Max, Min, Sum, Avg
 
 from rest_framework import viewsets, mixins
 from rest_framework.response import Response
-from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.filters import OrderingFilter
 from rest_framework.exceptions import APIException
 from rest_framework.decorators import action
 from django_filters.rest_framework import FilterSet, NumberFilter, DateFilter, DateTimeFilter, DjangoFilterBackend
@@ -89,53 +89,15 @@ class StationViewSet(mixins.CreateModelMixin,
 
     queryset = Station.objects.all()
     serializer_class = StationSerializer
-    filter_backends = (SearchFilter, OrderingFilter, DjangoFilterBackend,)
+    filter_backends = (OrderingFilter, DjangoFilterBackend,)
     filter_class = StationFilter
     ordering_fields = '__all__'
-    search_fields = ('name')
 
 
 class TripFilter(FilterSet):
     """
     The filter class for trips
 
-    Attributes
-    ----------
-    start_time_gt: DateTime
-        start_time filter to get trips whose start_time is greater than this value
-
-    start_time_lt: DateTime
-        start_time filter to get trips whose start_time is less than this value
-
-    stop_time_gt: DateTime
-        start_time filter to get trips whose stop_time is greater than this value
-
-    stop_time_lt: DateTime
-        start_time filter to get trips whose stop_time is less than this value
-
-    start_date_gt: Date
-        start_time filter to get trips whose start_date is greater than this value
-
-    start_date_lt: Date
-        start_time filter to get trips whose start_date is less than this value
-
-    stop_date_gt: Date
-        start_time filter to get trips whose stop_date is greater than this value
-
-    stop_date_lt: Date
-        start_time filter to get trips whose stop_date is less than this value
-
-    birth_year_gt: int
-        capacity filter to get stations whose birht_year is greater than this value
-
-    birth_year_lt: int
-        capacity filter to get stations whose birht_year is less than this value
-
-    duration_gt: int
-        capacity filter to get stations whose duration is greater than this value
-
-    duration_lt: int
-        capacity filter to get stations whose duration is less than this value
     """
     
     start_time_gt = DateTimeFilter(field_name='start_time', lookup_expr='gt')
@@ -171,6 +133,9 @@ class TripViewSet(viewsets.ReadOnlyModelViewSet):
 
     list:
     Return a list of all the trips.
+
+    summary:
+    Return summary information of trips
     """
     
     queryset = Trip.objects.all()
@@ -190,17 +155,38 @@ class TripViewSet(viewsets.ReadOnlyModelViewSet):
     @action(detail=False, methods=['get'])
     def summary(self, request, *args, **kwargs):
         """
-        Return a summary of trip history using specified aggregate functions and field which are grouped by the group_by field.
+        Return a summary of trip history using specified aggregate functions and field. The summaries are grouped by the field specified by 'group_by'.
+
+        Query Parameters
         ----------
-        group_by: str
+        group_by (required): str
+
             a field name of Trip to be grouped
 
         agg: str
-            aggregation function names (count, max, min, avg or sum). Specify multiple names with comma (,)
+
+            aggregation function names (count, max, min, avg or sum). Specify multiple names with comma (,). Default is 'coubt'
 
         field: str
+
             a field name of Trip to summarize
 
+        Examples
+        -----------
+        http://127.0.0.1:8000/apis/trips/summary/?group_by=gender
+
+            Get number of records grouped by gender field
+
+        http://127.0.0.1:8000/apis/trips/summary/?group_by=gender&agg=max&field=duration
+
+            Get maximum duration for each gender
+
+        http://127.0.0.1:8000/apis/trips/summary/?group_by=gender&agg=max,min&field=duration
+
+            Get maximum and minimum duration for each gender
+
+        Returns
+        ----------
         The fields of response depends on how you specify 'group_by', 'field', 'agg' request parameters.
         """
         
