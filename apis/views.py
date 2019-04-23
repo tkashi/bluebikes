@@ -33,7 +33,7 @@ class StationFilter(FilterSet):
         model = Station
         fields = '__all__'
 
-class StationViewSet(viewsets.ReadOnlyModelViewSet):
+class StationViewSet(viewsets.ModelViewSet):
     """
     The viewset class for stations
 
