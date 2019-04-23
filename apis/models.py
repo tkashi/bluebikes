@@ -64,7 +64,6 @@ class Station(models.Model):
     electric_bike_surcharge_waiver = models.BooleanField()
     eightd_has_key_dispenser = models.BooleanField()
     has_kiosk = models.BooleanField()
-    rental_methods = models.ManyToManyField(RentalMethod)
 
     def __str__(self):
         return self.name
@@ -105,7 +104,7 @@ class Trip(models.Model):
         
     birth_year: int
         the user's birth year
-        
+
     gender: int
         the user's gender (0 = unknown, 1 = man, 2 = woman)
     """
