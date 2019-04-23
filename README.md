@@ -33,7 +33,7 @@ pip install -r requirements.txt
 
 2. Download one Bluebikes trip history data from [here](https://s3.amazonaws.com/hubway-data/index.html), unzip the file and put a csv file into the data folder.
 
-3. Create database and import some master data (Note: you need to connect to internet because this automatically gets the Region and Station datasets mentioned above.)
+3. Create database and import some master data (Note: you need to connect to internet because this automatically gets the Region and Station datasets mentioned above). It will take for a while depending on how large your dataset is. 
 
 ```
 python manage.py migrate
@@ -48,6 +48,12 @@ python manage.py runserver
 If you can see the Api Root page at http://127.0.0.1:8000/apis via any browser, you have completed installation!
 
 You can also access to the dashboard via http://127.0.0.1:8000/dashboards/.
+
+### API docs
+
+You can see the list of all the endpoints and their specifications at http://127.0.0.1:8000/docs/.
+
+You can also see the explanations of each endpoint at http://127.0.0.1:8000/apis.
 
 ## Running the tests
 
