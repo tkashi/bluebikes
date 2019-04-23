@@ -9,7 +9,7 @@ $(function() {
         return countOfDays;
     }
 
-    $.ajax('../apis/tripsummary', {
+    $.ajax('../apis/trips/summary', {
         data: {
             group_by: 'start_date',
             aggregate: 'count'
