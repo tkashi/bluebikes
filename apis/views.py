@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.db.models import Count, Max, Min, Sum, Avg
 
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins
 from rest_framework.response import Response
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.exceptions import APIException
@@ -22,7 +22,7 @@ class StationFilter(FilterSet):
     ----------
     capacity_gt: int
         capacity filter to get stations whose capacity is greater than this value
-        
+
     capacity_lt: int
         capacity filter to get stations whose capacity is less than this value
 
@@ -34,7 +34,11 @@ class StationFilter(FilterSet):
         model = Station
         fields = '__all__'
 
-class StationViewSet(viewsets.ModelViewSet):
+class StationViewSet(mixins.CreateModelMixin,
+                    mixins.ListModelMixin,
+                    mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    viewsets.GenericViewSet):
     """
     The viewset class for stations
 
@@ -43,6 +47,9 @@ class StationViewSet(viewsets.ModelViewSet):
 
     list:
     Return a list of all the stations.
+
+    update: 
+    Update the station.
 
     create:
     Create a new station.
