@@ -25,22 +25,31 @@ class Station(models.Model):
     ----------
     station_id : int
         the unique identified of the station
+
     short_name : str
         the short name of the station
+
     name : str
         the name of the station
+
     lat : double
         the latitude of the location of the station
+
     lon : double
         the longitude of the location of the station
+
     region: Region
         the region of the station
+
     capacity : int
         the capacity of bikes at the station
+
     electric_bike_surcharge_waiver:  boolean
         whether the electric bike surcharge can be waivered
+
     eightd_has_key_dispenser: boolean
         whether the station has key dispenser
+
     has_kiosk: boolean
         whether there is a kiosk at the station
     """
@@ -69,24 +78,34 @@ class Trip(models.Model):
     ----------
     duration : int
         the duration of the trip
+
     start_time : ISODatetime
         the date time to start the trip
+
     stop_time : ISODatetime
         the date time to stop the trip
+
     start_time : ISODate
         the date to start the trip
+
     stop_time : ISODate
         the date to stop the trip
+
     start_station: Station
         the station to start the trip
+
     stop_station: Station
         the station to stop the trip
+
     bike_id : int
         the unique identifer of the bike used for the trip
+
     is_subscriber:  boolean
         whether the user has subscriber or not
+        
     birth_year: int
         the user's birth year
+        
     gender: int
         the user's gender (0 = unknown, 1 = man, 2 = woman)
     """

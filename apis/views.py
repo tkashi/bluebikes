@@ -22,6 +22,7 @@ class StationFilter(FilterSet):
     ----------
     capacity_gt: int
         capacity filter to get stations whose capacity is greater than this value
+        
     capacity_lt: int
         capacity filter to get stations whose capacity is less than this value
 
@@ -44,28 +45,37 @@ class StationViewSet(viewsets.ModelViewSet):
     Return a list of all the stations.
 
     create:
-    Create a new user station.
+    Create a new station.
 
     Attributes
     ----------
     station_id : int
         the unique identified of the station
+
     short_name : str
         the short name of the station
+
     name : str
         the name of the station
+
     lat : double
         the latitude of the location of the station
+
     lon : double
         the longitude of the location of the station
+
     region: int
         the region of the station
+
     capacity : int
         the capacity of bikes at the station
+
     electric_bike_surcharge_waiver:  boolean
         whether the electric bike surcharge can be waivered
+
     eightd_has_key_dispenser: boolean
         whether the station has key dispenser
+
     has_kiosk: boolean
         whether there is a kiosk at the station
     """
@@ -86,26 +96,37 @@ class TripFilter(FilterSet):
     ----------
     start_time_gt: DateTime
         start_time filter to get trips whose start_time is greater than this value
+
     start_time_lt: DateTime
         start_time filter to get trips whose start_time is less than this value
+
     stop_time_gt: DateTime
         start_time filter to get trips whose stop_time is greater than this value
+
     stop_time_lt: DateTime
         start_time filter to get trips whose stop_time is less than this value
+
     start_date_gt: Date
         start_time filter to get trips whose start_date is greater than this value
+
     start_date_lt: Date
         start_time filter to get trips whose start_date is less than this value
+
     stop_date_gt: Date
         start_time filter to get trips whose stop_date is greater than this value
+
     stop_date_lt: Date
         start_time filter to get trips whose stop_date is less than this value
+
     birth_year_gt: int
         capacity filter to get stations whose birht_year is greater than this value
+
     birth_year_lt: int
         capacity filter to get stations whose birht_year is less than this value
+
     duration_gt: int
         capacity filter to get stations whose duration is greater than this value
+
     duration_lt: int
         capacity filter to get stations whose duration is less than this value
     """
@@ -166,8 +187,10 @@ class TripViewSet(viewsets.ReadOnlyModelViewSet):
         ----------
         group_by: str
             a field name of Trip to be grouped
+
         agg: str
             aggregation function names (count, max, min, avg or sum). Specify multiple names with comma (,)
+
         field: str
             a field name of Trip to summarize
 
