@@ -1,0 +1,306 @@
+[
+	{
+        "model": "apis.station",
+        "pk": 3,
+		"fields": {
+			"station_id": 3,
+            "short_name": "B32006",
+            "name": "Colleges of the Fenway - Fenway at Avenue Louis Pasteur",
+            "lat": 42.34011512249236,
+            "lon": -71.10061883926392,
+            "region": 10,
+            "capacity": 15,
+            "electric_bike_surcharge_waiver": false,
+            "eightd_has_key_dispenser": true,
+            "has_kiosk": true
+		}
+    },
+	{
+        "model": "apis.station",
+        "pk": 190,
+		"fields": {
+			"station_id": 190,
+			"short_name": "A32025",
+			"name": "Nashua Street at Red Auerbach Way",
+			"lat": 42.365673,
+			"lon": -71.064263,
+			"region": 10,
+			"capacity": 37,
+			"electric_bike_surcharge_waiver": false,
+			"eightd_has_key_dispenser": true,
+			"has_kiosk": true
+		}
+	},
+	{
+        "model": "apis.station",
+        "pk": 43,
+		"fields": {
+			"station_id": 43,
+			"short_name": "D32008",
+			"name": "Rowes Wharf at Atlantic Ave",
+			"lat": 42.357143,
+			"lon": -71.050699,
+			"region": 10,
+			"capacity": 15,
+			"electric_bike_surcharge_waiver": false,
+			"eightd_has_key_dispenser": true,
+			"has_kiosk": true
+		}
+	},
+	{
+        "model": "apis.station",
+        "pk": 279,
+		"fields": {
+			"station_id": 279,
+			"short_name": "D32040",
+			"name": "Williams St at Washington St",
+			"lat": 42.306539,
+			"lon": -71.107669,
+			"region": 10,
+			"capacity": 19,
+			"electric_bike_surcharge_waiver": false,
+			"eightd_has_key_dispenser": false,
+			"has_kiosk": true
+		}
+	},
+	{
+        "model": "apis.station",
+        "pk": 189,
+		"fields": {
+			"station_id": 189,
+			"short_name": "M32004",
+			"name": "Kendall T",
+			"lat": 42.362427842912396,
+			"lon": -71.08495473861694,
+			"region": 10,
+			"capacity": 23,
+			"electric_bike_surcharge_waiver": false,
+			"eightd_has_key_dispenser": true,
+			"has_kiosk": true
+		}
+	},
+	{
+        "model": "apis.station",
+        "pk": 91,
+		"fields": {
+			"station_id": 91,
+			"short_name": "M32002",
+			"name": "One Kendall Square at Hampshire St / Portland St",
+			"lat": 42.366277,
+			"lon": -71.09169,
+			"region": 10,
+			"capacity": 19,
+			"electric_bike_surcharge_waiver": false,
+			"eightd_has_key_dispenser": false,
+			"has_kiosk": true
+		}
+	},
+	{
+        "model": "apis.station",
+        "pk": 56,
+		"fields": {
+			"station_id": 56,
+			"short_name": "B32017",
+			"name": "Dudley Square - Dudley St at Warren St",
+			"lat": 42.32854046293402,
+			"lon": -71.08416482806204,
+			"region": 10,
+			"capacity": 14,
+			"electric_bike_surcharge_waiver": false,
+			"eightd_has_key_dispenser": true,
+			"has_kiosk": true
+		}
+	},
+	{
+        "model": "apis.station",
+        "pk": 372,
+		"fields": {
+			"station_id": 372,
+			"short_name": "D32046",
+			"name": "Boylston St at Exeter St",
+			"lat": 42.349589423682445,
+			"lon": -71.0794677917329,
+			"region": 10,
+			"capacity": 19,
+			"electric_bike_surcharge_waiver": false,
+			"eightd_has_key_dispenser": false,
+			"has_kiosk": true
+		}
+	},
+	{
+        "model": "apis.station",
+        "pk": 80,
+		"fields": {
+			"station_id": 80,
+			"short_name": "M32005",
+			"name": "MIT Stata Center at Vassar St / Main St",
+			"lat": 42.3621312344991,
+			"lon": -71.09115600585936,
+			"region": 10,
+			"capacity": 27,
+			"electric_bike_surcharge_waiver": false,
+			"eightd_has_key_dispenser": false,
+			"has_kiosk": true
+		}
+	},
+	{
+        "model": "apis.station",
+        "pk": 74,
+		"fields": {
+			"station_id": 74,
+			"short_name": "M32018",
+			"name": "Harvard Square at Mass Ave/ Dunster",
+			"lat": 42.373268,
+			"lon": -71.118579,
+			"region": 10,
+			"capacity": 19,
+			"electric_bike_surcharge_waiver": false,
+			"eightd_has_key_dispenser": true,
+			"has_kiosk": true
+		}
+	},
+	{
+        "model": "apis.station",
+        "pk": 33,
+		"fields": {
+			"station_id": 33,
+			"short_name": "B32010",
+			"name": "Kenmore Square",
+			"lat": 42.348706,
+			"lon": -71.097009,
+			"region": 10,
+			"capacity": 26,
+			"electric_bike_surcharge_waiver": false,
+			"eightd_has_key_dispenser": true,
+			"has_kiosk": true
+		}
+	},
+	{
+        "model": "apis.station",
+        "pk": 14,
+		"fields": {
+			"station_id": 14,
+			"short_name": "B32003",
+			"name": "HMS/HSPH - Avenue Louis Pasteur at Longwood Ave",
+			"lat": 42.3374174845973,
+			"lon": -71.10286116600037,
+			"region": 10,
+			"capacity": 21,
+			"electric_bike_surcharge_waiver": false,
+			"eightd_has_key_dispenser": false,
+			"has_kiosk": true
+		}
+	},
+	{
+        "model": "apis.station",
+        "pk": 105,
+		"fields": {
+			"station_id": 105,
+			"short_name": "M32022",
+			"name": "Lower Cambridgeport at Magazine St / Riverside Rd",
+			"lat": 42.357218503176526,
+			"lon": -71.1138716340065,
+			"region": 10,
+			"capacity": 19,
+			"electric_bike_surcharge_waiver": false,
+			"eightd_has_key_dispenser": false,
+			"has_kiosk": true
+		}
+	},
+	{
+        "model": "apis.station",
+        "pk": 115,
+		"fields": {
+			"station_id": 115,
+			"short_name": "M32029",
+			"name": "Porter Square Station",
+			"lat": 42.387995,
+			"lon": -71.119084,
+			"region": 10,
+			"capacity": 19,
+			"electric_bike_surcharge_waiver": false,
+			"eightd_has_key_dispenser": false,
+			"has_kiosk": true
+		}
+	},
+	{
+        "model": "apis.station",
+        "pk": 10,
+		"fields": {
+			"station_id": 10,
+			"short_name": "A32003",
+			"name": "B.U. Central - 725 Comm. Ave.",
+			"lat": 42.350406,
+			"lon": -71.108279,
+			"region": 10,
+			"capacity": 11,
+			"electric_bike_surcharge_waiver": false,
+			"eightd_has_key_dispenser": false,
+			"has_kiosk": true
+		}
+	},
+	{
+        "model": "apis.station",
+        "pk": 107,
+		"fields": {
+			"station_id": 107,
+			"short_name": "M32037",
+			"name": "Ames St at Main St",
+			"lat": 42.3625,
+			"lon": -71.08822,
+			"region": 10,
+			"capacity": 19,
+			"electric_bike_surcharge_waiver": false,
+			"eightd_has_key_dispenser": false,
+			"has_kiosk": true
+		}
+	},
+	{
+        "model": "apis.station",
+        "pk": 43,
+		"fields": {
+			"station_id": 43,
+			"short_name": "D32008",
+			"name": "Rowes Wharf at Atlantic Ave",
+			"lat": 42.357143,
+			"lon": -71.050699,
+			"region": 10,
+			"capacity": 15,
+			"electric_bike_surcharge_waiver": false,
+			"eightd_has_key_dispenser": true,
+			"has_kiosk": true
+		}
+	},
+	{
+        "model": "apis.station",
+        "pk": 360,
+		"fields": {
+			"station_id": 360,
+			"short_name": "B32055",
+			"name": "Bartlett St at John Elliot Sq",
+			"lat": 42.3294633,
+			"lon": -71.0901582,
+			"region": 10,
+			"capacity": 15,
+			"electric_bike_surcharge_waiver": false,
+			"eightd_has_key_dispenser": false,
+			"has_kiosk": true
+		}
+	},
+	{
+        "model": "apis.station",
+        "pk": 12,
+		"fields": {
+			"station_id": 12,
+			"short_name": "B32002",
+			"name": "Ruggles T Stop - Columbus Ave at Melnea Cass Blvd",
+			"lat": 42.33624444796878,
+			"lon": -71.08798563480377,
+			"region": 10,
+			"capacity": 18,
+			"electric_bike_surcharge_waiver": false,
+			"eightd_has_key_dispenser": true,
+			"has_kiosk": true
+		}
+	}
+]

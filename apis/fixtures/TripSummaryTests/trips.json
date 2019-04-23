@@ -1,0 +1,380 @@
+[
+	{
+		"model": "apis.trip",
+		"pk": 175,
+		"fields": {
+			"id": 175,
+			"start_station": 190,
+			"stop_station": 3,
+			"duration": 1171,
+			"start_time": "2019-03-01T07:22:57.543000-05:00",
+			"stop_time": "2019-03-01T07:42:29.141000-05:00",
+			"start_date": "2019-03-01",
+			"stop_date": "2019-03-01",
+			"bike_id": 3571,
+			"is_subscriber": true,
+			"birth_year": 1984,
+			"gender": 1
+		}
+	},
+	{
+		"model": "apis.trip",
+		"pk": 522,
+		"fields": {
+			"id": 522,
+			"start_station": 43,
+			"stop_station": 3,
+			"duration": 1217,
+			"start_time": "2019-03-01T08:31:51.546000-05:00",
+			"stop_time": "2019-03-01T08:52:09.433000-05:00",
+			"start_date": "2019-03-01",
+			"stop_date": "2019-03-01",
+			"bike_id": 2251,
+			"is_subscriber": true,
+			"birth_year": 1989,
+			"gender": 1
+		}
+	},
+	{
+		"model": "apis.trip",
+		"pk": 575,
+		"fields": {
+			"id": 575,
+			"start_station": 279,
+			"stop_station": 3,
+			"duration": 1035,
+			"start_time": "2019-03-01T08:39:39.708000-05:00",
+			"stop_time": "2019-03-01T08:56:54.796000-05:00",
+			"start_date": "2019-03-01",
+			"stop_date": "2019-03-01",
+			"bike_id": 3683,
+			"is_subscriber": true,
+			"birth_year": 1980,
+			"gender": 2
+		}
+	},
+	{
+		"model": "apis.trip",
+		"pk": 787,
+		"fields": {
+			"id": 787,
+			"start_station": 189,
+			"stop_station": 3,
+			"duration": 1103,
+			"start_time": "2019-03-01T09:17:05.358000-05:00",
+			"stop_time": "2019-03-01T09:35:29.303000-05:00",
+			"start_date": "2019-03-01",
+			"stop_date": "2019-03-01",
+			"bike_id": 3544,
+			"is_subscriber": true,
+			"birth_year": 1986,
+			"gender": 2
+		}
+	},
+	{
+		"model": "apis.trip",
+		"pk": 931,
+		"fields": {
+			"id": 931,
+			"start_station": 91,
+			"stop_station": 3,
+			"duration": 1153,
+			"start_time": "2019-03-01T09:56:21.935000-05:00",
+			"stop_time": "2019-03-01T10:15:35.296000-05:00",
+			"start_date": "2019-03-01",
+			"stop_date": "2019-03-01",
+			"bike_id": 4526,
+			"is_subscriber": true,
+			"birth_year": 1994,
+			"gender": 1
+		}
+	},
+	{
+		"model": "apis.trip",
+		"pk": 1582,
+		"fields": {
+			"id": 1582,
+			"start_station": 56,
+			"stop_station": 3,
+			"duration": 639,
+			"start_time": "2019-03-01T14:43:28.487000-05:00",
+			"stop_time": "2019-03-01T14:54:08.486000-05:00",
+			"start_date": "2019-03-01",
+			"stop_date": "2019-03-01",
+			"bike_id": 3757,
+			"is_subscriber": false,
+			"birth_year": 1999,
+			"gender": 1
+		}
+	},
+	{
+		"model": "apis.trip",
+		"pk": 1602,
+		"fields": {
+			"id": 1602,
+			"start_station": 372,
+			"stop_station": 3,
+			"duration": 706,
+			"start_time": "2019-03-01T14:50:06.858000-05:00",
+			"stop_time": "2019-03-01T15:01:53.289000-05:00",
+			"start_date": "2019-03-01",
+			"stop_date": "2019-03-01",
+			"bike_id": 3274,
+			"is_subscriber": true,
+			"birth_year": 1993,
+			"gender": 1
+		}
+	},
+	{
+		"model": "apis.trip",
+		"pk": 1950,
+		"fields": {
+			"id": 1950,
+			"start_station": 80,
+			"stop_station": 3,
+			"duration": 1080,
+			"start_time": "2019-03-01T16:30:18.449000-05:00",
+			"stop_time": "2019-03-01T16:48:19.339000-05:00",
+			"start_date": "2019-03-01",
+			"stop_date": "2019-03-01",
+			"bike_id": 4536,
+			"is_subscriber": true,
+			"birth_year": 1993,
+			"gender": 2
+		}
+	},
+	{
+		"model": "apis.trip",
+		"pk": 2186,
+		"fields": {
+			"id": 2186,
+			"start_station": 74,
+			"stop_station": 3,
+			"duration": 1674,
+			"start_time": "2019-03-01T17:09:03.244000-05:00",
+			"stop_time": "2019-03-01T17:36:57.827000-05:00",
+			"start_date": "2019-03-01",
+			"stop_date": "2019-03-01",
+			"bike_id": 4096,
+			"is_subscriber": false,
+			"birth_year": 1969,
+			"gender": 0
+		}
+	},
+	{
+		"model": "apis.trip",
+		"pk": 3255,
+		"fields": {
+			"id": 3255,
+			"start_station": 33,
+			"stop_station": 3,
+			"duration": 316,
+			"start_time": "2019-03-02T02:16:11.030000-05:00",
+			"stop_time": "2019-03-02T02:21:27.533000-05:00",
+			"start_date": "2019-03-02",
+			"stop_date": "2019-03-02",
+			"bike_id": 4528,
+			"is_subscriber": true,
+			"birth_year": 1998,
+			"gender": 1
+		}
+	},
+	{
+		"model": "apis.trip",
+		"pk": 3940,
+		"fields": {
+			"id": 3940,
+			"start_station": 14,
+			"stop_station": 3,
+			"duration": 105,
+			"start_time": "2019-03-02T21:30:19.229000-05:00",
+			"stop_time": "2019-03-02T21:32:04.951000-05:00",
+			"start_date": "2019-03-02",
+			"stop_date": "2019-03-02",
+			"bike_id": 2644,
+			"is_subscriber": true,
+			"birth_year": 1986,
+			"gender": 1
+		}
+	},
+	{
+		"model": "apis.trip",
+		"pk": 4377,
+		"fields": {
+			"id": 4377,
+			"start_station": 105,
+			"stop_station": 3,
+			"duration": 1429,
+			"start_time": "2019-03-03T10:57:12.232000-05:00",
+			"stop_time": "2019-03-03T11:21:01.860000-05:00",
+			"start_date": "2019-03-03",
+			"stop_date": "2019-03-03",
+			"bike_id": 4029,
+			"is_subscriber": true,
+			"birth_year": 1990,
+			"gender": 1
+		}
+	},
+	{
+		"model": "apis.trip",
+		"pk": 4378,
+		"fields": {
+			"id": 4378,
+			"start_station": 105,
+			"stop_station": 3,
+			"duration": 1427,
+			"start_time": "2019-03-03T10:57:11.254000-05:00",
+			"stop_time": "2019-03-03T11:20:59.046000-05:00",
+			"start_date": "2019-03-03",
+			"stop_date": "2019-03-03",
+			"bike_id": 4373,
+			"is_subscriber": false,
+			"birth_year": 1990,
+			"gender": 2
+		}
+	},
+	{
+		"model": "apis.trip",
+		"pk": 4688,
+		"fields": {
+			"id": 4688,
+			"start_station": 115,
+			"stop_station": 3,
+			"duration": 4151,
+			"start_time": "2019-03-03T12:58:55.859000-05:00",
+			"stop_time": "2019-03-03T14:08:07.675000-05:00",
+			"start_date": "2019-03-03",
+			"stop_date": "2019-03-03",
+			"bike_id": 3586,
+			"is_subscriber": false,
+			"birth_year": 1999,
+			"gender": 1
+		}
+	},
+	{
+		"model": "apis.trip",
+		"pk": 4690,
+		"fields": {
+			"id": 4690,
+			"start_station": 115,
+			"stop_station": 3,
+			"duration": 4114,
+			"start_time": "2019-03-03T12:59:25.537000-05:00",
+			"stop_time": "2019-03-03T14:07:59.808000-05:00",
+			"start_date": "2019-03-03",
+			"stop_date": "2019-03-03",
+			"bike_id": 3671,
+			"is_subscriber": false,
+			"birth_year": 1999,
+			"gender": 1
+		}
+	},
+	{
+		"model": "apis.trip",
+		"pk": 5303,
+		"fields": {
+			"id": 5303,
+			"start_station": 10,
+			"stop_station": 3,
+			"duration": 449,
+			"start_time": "2019-03-03T16:44:30.326000-05:00",
+			"stop_time": "2019-03-03T16:51:59.846000-05:00",
+			"start_date": "2019-03-03",
+			"stop_date": "2019-03-03",
+			"bike_id": 4010,
+			"is_subscriber": true,
+			"birth_year": 1993,
+			"gender": 1
+		}
+	},
+	{
+		"model": "apis.trip",
+		"pk": 5304,
+		"fields": {
+			"id": 5304,
+			"start_station": 10,
+			"stop_station": 3,
+			"duration": 455,
+			"start_time": "2019-03-03T16:44:33.318000-05:00",
+			"stop_time": "2019-03-03T16:52:09.026000-05:00",
+			"start_date": "2019-03-03",
+			"stop_date": "2019-03-03",
+			"bike_id": 2469,
+			"is_subscriber": true,
+			"birth_year": 1991,
+			"gender": 2
+		}
+	},
+	{
+		"model": "apis.trip",
+		"pk": 6938,
+		"fields": {
+			"id": 6938,
+			"start_station": 107,
+			"stop_station": 3,
+			"duration": 1092,
+			"start_time": "2019-03-04T19:56:20.323000-05:00",
+			"stop_time": "2019-03-04T20:14:32.485000-05:00",
+			"start_date": "2019-03-04",
+			"stop_date": "2019-03-04",
+			"bike_id": 2223,
+			"is_subscriber": true,
+			"birth_year": 1991,
+			"gender": 2
+		}
+	},
+	{
+		"model": "apis.trip",
+		"pk": 7394,
+		"fields": {
+			"id": 7394,
+			"start_station": 43,
+			"stop_station": 3,
+			"duration": 1381,
+			"start_time": "2019-03-05T07:57:06.681000-05:00",
+			"stop_time": "2019-03-05T08:20:08.258000-05:00",
+			"start_date": "2019-03-05",
+			"stop_date": "2019-03-05",
+			"bike_id": 3325,
+			"is_subscriber": true,
+			"birth_year": 1989,
+			"gender": 1
+		}
+	},
+	{
+		"model": "apis.trip",
+		"pk": 7770,
+		"fields": {
+			"id": 7770,
+			"start_station": 360,
+			"stop_station": 3,
+			"duration": 623,
+			"start_time": "2019-03-05T09:06:28.780000-05:00",
+			"stop_time": "2019-03-05T09:16:52.405000-05:00",
+			"start_date": "2019-03-05",
+			"stop_date": "2019-03-05",
+			"bike_id": 3400,
+			"is_subscriber": false,
+			"birth_year": 1994,
+			"gender": 1
+		}
+	},
+	{
+		"model": "apis.trip",
+		"pk": 7983,
+		"fields": {
+			"id": 7983,
+			"start_station": 12,
+			"stop_station": 3,
+			"duration": 348,
+			"start_time": "2019-03-05T10:18:50.611000-05:00",
+			"stop_time": "2019-03-05T10:24:39.046000-05:00",
+			"start_date": "2019-03-05",
+			"stop_date": "2019-03-05",
+			"bike_id": 2678,
+			"is_subscriber": true,
+			"birth_year": 1993,
+			"gender": 1
+		}
+	}
+]

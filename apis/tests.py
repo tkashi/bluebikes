@@ -834,3 +834,191 @@ class TripListTests(APITestCase):
         response = self.client.get('/apis/trips/', {'start_date_gt': '2019-03-04', 'birth_year_gt': 1990}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 2)
+
+
+class TripSummaryTests(APITestCase):
+    fixtures = ['TripSummaryTests/stations', 'TripSummaryTests/trips']
+
+    def test_get_trip_summary_count(self):
+        response = self.client.get('/apis/tripsummary/', {'group_by': 'start_date', 'agg': 'count'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, [{
+            'start_date': '2019-03-01',
+            'count': 9
+        }, {
+            'start_date': '2019-03-02',
+            'count': 2
+        }, {
+            'start_date': '2019-03-03',
+            'count': 6
+        }, {
+            'start_date': '2019-03-04',
+            'count': 1
+        }, {
+            'start_date': '2019-03-05',
+            'count': 3
+        }])
+
+
+    # agg's default is count
+    def test_get_trip_summary_not_specify_agg(self):
+        response = self.client.get('/apis/tripsummary/', {'group_by': 'start_date'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, [{
+            'start_date': '2019-03-01',
+            'count': 9
+        }, {
+            'start_date': '2019-03-02',
+            'count': 2
+        }, {
+            'start_date': '2019-03-03',
+            'count': 6
+        }, {
+            'start_date': '2019-03-04',
+            'count': 1
+        }, {
+            'start_date': '2019-03-05',
+            'count': 3
+        }])
+    
+    def test_get_trip_summary_max(self):
+        response = self.client.get('/apis/tripsummary/', {
+            'group_by': 'start_date', 
+            'agg': 'max', 
+            'field': 'duration'
+        }, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, [{
+            'start_date': '2019-03-01',
+            'max_duration': 1674
+        }, {
+            'start_date': '2019-03-02',
+            'max_duration': 316
+        }, {
+            'start_date': '2019-03-03',
+            'max_duration': 4151
+        }, {
+            'start_date': '2019-03-04',
+            'max_duration': 1092
+        }, {
+            'start_date': '2019-03-05',
+            'max_duration': 1381
+        }])
+
+
+    def test_get_trip_summary_ave(self):
+        response = self.client.get('/apis/tripsummary/', {
+            'group_by': 'start_date', 
+            'agg': 'avg', 
+            'field': 'duration'
+        }, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, [{
+            'start_date': '2019-03-01',
+            'avg_duration': 1086
+        }, {
+            'start_date': '2019-03-02',
+            'avg_duration': 210
+        }, {
+            'start_date': '2019-03-03',
+            'avg_duration': 2004
+        }, {
+            'start_date': '2019-03-04',
+            'avg_duration': 1092
+        }, {
+            'start_date': '2019-03-05',
+            'avg_duration': 784
+        }])
+
+
+    def test_get_trip_summary_min(self):
+        response = self.client.get('/apis/tripsummary/', {
+            'group_by': 'start_date', 
+            'agg': 'min', 
+            'field': 'duration'
+        }, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, [{
+            'start_date': '2019-03-01',
+            'min_duration': 639
+        }, {
+            'start_date': '2019-03-02',
+            'min_duration': 105
+        }, {
+            'start_date': '2019-03-03',
+            'min_duration': 449
+        }, {
+            'start_date': '2019-03-04',
+            'min_duration': 1092
+        }, {
+            'start_date': '2019-03-05',
+            'min_duration': 348
+        }])
+
+            
+    def test_get_trip_summary_sum(self):
+        response = self.client.get('/apis/tripsummary/', {
+            'group_by': 'start_date', 
+            'agg': 'sum', 
+            'field': 'duration'
+        }, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, [{
+            'start_date': '2019-03-01',
+            'sum_duration': 9778
+        }, {
+            'start_date': '2019-03-02',
+            'sum_duration': 421
+        }, {
+            'start_date': '2019-03-03',
+            'sum_duration': 12025
+        }, {
+            'start_date': '2019-03-04',
+            'sum_duration': 1092
+        }, {
+            'start_date': '2019-03-05',
+            'sum_duration': 2352
+        }])
+    
+
+    def test_get_trip_summary_multiple_agg(self):
+        response = self.client.get('/apis/tripsummary/', {
+            'group_by': 'start_date', 
+            'agg': 'sum,count', 
+            'field': 'duration'
+        }, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, [{
+            'start_date': '2019-03-01',
+            'sum_duration': 9778,
+            'count': 9
+        }, {
+            'start_date': '2019-03-02',
+            'sum_duration': 421,
+            'count': 2
+        }, {
+            'start_date': '2019-03-03',
+            'sum_duration': 12025,
+            'count': 6
+        }, {
+            'start_date': '2019-03-04',
+            'sum_duration': 1092,
+            'count': 1
+        }, {
+            'start_date': '2019-03-05',
+            'sum_duration': 2352,
+            'count': 3
+        }])
+
+    
+    def test_get_trip_summary_missing_group_by(self):
+         response = self.client.get('/apis/tripsummary/', format='json')
+         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+    def test_get_trip_summary_missing_field(self):
+         response = self.client.get('/apis/tripsummary/', {
+             'group_by': 'start_date',
+             'agg': 'max'
+         }, format='json')
+         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
