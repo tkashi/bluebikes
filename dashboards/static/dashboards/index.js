@@ -77,24 +77,32 @@
         });
     };
 
-    function projectPoint(x, y) {
-        const point = map.latLngToLayerPoint(new L.LatLng(y, x));
-        this.stream.point(point.x, point.y);
-      }
 
-    const showStationsMap = $root => {
+    /**
+     * Show the stations on the map.
+     * 
+     * @param {jQuery} $root content element
+     */
+    function showStationsMap($root) {
         const INITIAL_ZOOM_LEVEL = 13
 
+        // add map element to content
         const $map = $('<p id="map"></p>')
         $map.width($root.width())
         $root.append($map);
         
-        const map = new L.Map($map[0], {center: [42.36, -71.05], zoom: INITIAL_ZOOM_LEVEL}).addLayer(new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'));
+        const map = new L.Map($map[0], {
+            center: [42.36, -71.05], 
+            zoom: INITIAL_ZOOM_LEVEL
+        }).addLayer(new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'));
+
+        // add svg layer
         L.svg().addTo(map);	
         
         const svg = d3.select('#map').select('svg');
         const g = svg.append('g').attr('class', 'leaflet-zoom-hide');
 
+        // get capacity and location information of all stations
         $.ajax('../apis/stations', {
             data: {
                 limit: 300,
@@ -103,10 +111,13 @@
         }).done(resp => {
 
             const results = resp['results'];
+            
+            // add Location data object to original data
             results.forEach(function(d){
                 d.LatLngObj = new L.LatLng(d.lat, d.lon);
             });
 
+            // add circles
             const circles = g.selectAll("circle")
                 .data(results)
                 .enter()
@@ -117,6 +128,7 @@
                     "fill": "red"
                 }); 
             
+            // update every time the map is reset
             function update() {
                 circles.attr('transform', d => {
                     const point = map.latLngToLayerPoint(d.LatLngObj)
@@ -124,13 +136,13 @@
                 });
                 zoom = map.getZoom();
                 circles.attr('r', d => {
-                    return d.capacity / 20 * 3 * (zoom / INITIAL_ZOOM_LEVEL) ** 2
+                    return d.capacity / 20 * 3 * (zoom / INITIAL_ZOOM_LEVEL) ** 2 // change circle size depending on capacity and zoom level
                 });
             } 
     
             map.on('moveend', update);
      
-            update();
+            update(); // first update
         });
 
     };
