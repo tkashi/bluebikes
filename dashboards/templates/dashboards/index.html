@@ -20,6 +20,7 @@
     </ul>
   </nav>
 
+  <!-- side menu -->
   <div class="container-fluid">
     <div class="row">
       <nav class="col-md-2 d-none d-md-block bg-light sidebar">
@@ -41,10 +42,12 @@
         </div>
       </nav>
 
+      <!-- main contents -->
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
           <h1 class="h2"></h1>
           <div class="btn-toolbar mb-2 mb-md-0">
+            <!-- buttons of filters (only one button is shown at the same time) -->
             <button class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#summary-filter-modal">Filter</button>
             <button class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#stations-filter-modal">Filter</button>
           </div>
@@ -54,6 +57,7 @@
     </div>
   </div>
 
+  <!-- modal of trip summary filter -->
   <div class="modal fade" id="summary-filter-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
       <div class="modal-content">
@@ -150,6 +154,7 @@
     </div>
   </div>
 
+  <!-- modal of stations filter -->
   <div class="modal fade" id="stations-filter-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
       <div class="modal-content">

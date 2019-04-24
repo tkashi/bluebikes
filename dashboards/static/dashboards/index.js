@@ -3,6 +3,7 @@
     const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     const MARGIN = {top: 20, right: 20, bottom: 70, left: 60};
 
+    // functions to summarize values for each day
     const summarize_funcs = {
         count: (countOfDays, countOfDate) => {
             day = new Date(countOfDate.start_date).getDay();
@@ -35,14 +36,14 @@
     function showTripSummary($root, filter) {
         $root.append('<svg id="myChart"></svg>')
 
-        const agg = $('#summary-agg').val();
+        const agg = $('#summary-agg').val(); // aggregation function name
 
         // get summary of trips for each date
         $.ajax('../apis/trips/summary', {
             data: $.extend({
                 group_by: 'start_date',
                 agg: agg,
-                field: 'duration'
+                field: 'duration' // ignored when agg == count
             }, filter)
         }).done(resp => {
             // summarize by day
@@ -84,7 +85,7 @@
                 .append("text")
                 .attr("y", -10)
                 .style("text-anchor", "end")
-                .text($('#summary-agg').children('[value=' + agg + ']').text());
+                .text($('#summary-agg').children('[value=' + agg + ']').text()); // use the same label from aggregation select box at the modal form
     
             // bars
             svg.selectAll("bar")
@@ -190,15 +191,18 @@
 
     };
 
+    // execute after finishing loading
     $(function() {
         $content = $('#content');
         $mainTitle = $('main').find('h1.h2');
         $sideBar = $('.sidebar');
 
+        // close modal when cancel button is pushed
         $('#summary-filter-modal .cancel').on('hide.bs.modal', function (e) {
             $('#summary-filter-modal').modal('hide');
         });
 
+        // redraw the summary chart according to selected filters
         $('#summary-filter-modal .submit').click(function (e) {
             $content.empty();
 
@@ -216,10 +220,12 @@
             $('#summary-filter-modal').modal('hide');
         });
 
+        // close modal when cancel button is pushed
         $('#station-filter-modal .cancel').on('hide.bs.modal', function (e) {
             $('#station-filter-modal').modal('hide');
         });
 
+        // redraw the station map according to selected filters
         $('#station-filter-modal .submit').click(function (e) {
             $content.empty();
 
@@ -236,6 +242,12 @@
             $('#station-filter-modal').modal('hide');
         });
     
+        /**
+         * Initialize each view. Remove all contents before initializing each view.
+         * 
+         * @param {string} hash hash value of each view
+         * @param {Function} func function to be executed for each view
+         */
         function initMain(hash, func) {
             // activate corresponding side menu
             const $as = $sideBar.find('a.nav-link');
@@ -253,6 +265,7 @@
             func($content)
         }
 
+        // hash (view) change event handler
         const  hashChangeHandler = e => {
             switch (location.hash) {
                 case '':
