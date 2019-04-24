@@ -89,7 +89,7 @@
      * 
      * @param {jQuery} $root content element
      */
-    function showStationsMap($root) {
+    function showStationsMap($root, filters) {
         const INITIAL_ZOOM_LEVEL = 13
 
         // add map element to content
@@ -110,10 +110,10 @@
 
         // get capacity and location information of all stations
         $.ajax('../apis/stations', {
-            data: {
+            data: $.extend({
                 limit: 300,
                 fields: 'lat,lon,station_id,capacity,name'
-            }
+            }, filters)
         }).done(resp => {
 
             const results = resp['results'];
@@ -169,12 +169,31 @@
 
     };
 
-
     $(function() {
         $content = $('#content');
         $mainTitle = $('main').find('h1.h2');
         $sideBar = $('.sidebar');
 
+        $('#station-filter-modal .cancel').on('hide.bs.modal', function (e) {
+            $('#station-filter-modal').modal('hide');
+        });
+
+        $('#station-filter-modal .submit').click(function (e) {
+            $content.empty();
+
+            showStationsMap($content, {
+                name: $('#station-name').val(),
+                region: $('#station-region').val(),
+                capacity_gt: $('#capacity-gt').val(),
+                capacity_lt: $('#capacity-lt').val(),
+                electric_bike_surcharge_waiver: $('#electric-bike-surcharge-waiver').prop('checked') || '',
+                eightd_has_key_dispenser: $('#eightd-has-key-dispenser').prop('checked') || '',
+                has_kiosk: $('#has-kiosk').prop('checked') || ''
+            });
+
+            $('#station-filter-modal').modal('hide');
+        });
+    
         function initMain(hash, func) {
             const $as = $sideBar.find('a.nav-link');
             $as.removeClass('active');

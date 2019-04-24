@@ -66,14 +66,83 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
           <h1 class="h2"></h1>
           <div class="btn-toolbar mb-2 mb-md-0">
-            <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-              <span data-feather="calendar"></span>
-              This Month
-            </button>
+            <button class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#station-filter-modal">Filter</button>
           </div>
         </div>
         <div id="content"></div>
       </main>
+    </div>
+  </div>
+
+  <div class="modal fade" id="station-filter-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Station Filter</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="station-name">Name</label>
+                <input type="text" class="form-control" id="station-name" placeholder="Name">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="station-region">Region</label>
+                <select id="station-region" class="form-control">
+                  <option selected></option>
+                  <option value="4">Brookline</option>
+                  <option value="8">Cambridge</option>
+                  <option value="9">Somerville</option>
+                  <option value="10">Boston</option>
+                  <option value="33">Motivate</option>
+                  <option value="39">8D</option>
+                  <option value="89">Hingham</option>
+                  <option value="90">Quincy</option>
+                  <option value="91">Hingham</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="capacity-gt">Capacity Min</label>
+                <input type="number" class="form-control" id="capacity-gt">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="capacity-lt">Capacity Max</label>
+                <input type="number" class="form-control" id="capacity-lt">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="electric-bike-surcharge-waiver" value="option1">
+                <label class="form-check-label" for="electric-bike-surcharge-waiver">Electric bike surcharge waiver</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="eightd-has-key-dispenser" value="option1">
+                <label class="form-check-label" for="eightd-has-key-dispenser">Key dispenser</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="has-kiosk" value="option1">
+                <label class="form-check-label" for="has-kiosk">Kiosk</label>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary cancel" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary submit">Submit</button>
+        </div>
+      </div>
     </div>
   </div>
 
