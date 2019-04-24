@@ -321,6 +321,17 @@ class StationListTests(APITestCase):
             "has_kiosk": True
         })
 
+    def test_get_stations_with_limit(self):
+        response = self.client.get('/apis/stations/?limit=5', format='json')
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 21)
+        self.assertEqual(response.data['next'], 'http://testserver/apis/stations/?limit=5&page=2')
+        self.assertIsNone(response.data['previous'])
+
+        results = response.data['results']
+        self.assertEqual(len(results), 5)
+
 
     def test_get_stations_with_fields_filter(self):
         response = self.client.get('/apis/stations/', {'fields': 'station_id'}, format='json')
@@ -764,6 +775,17 @@ class TripListTests(APITestCase):
 			"birth_year": 1993,
 			"gender": 1
         })
+
+    def test_get_trips_with_limit(self):
+        response = self.client.get('/apis/trips/?limit=20', format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 21)
+        self.assertEqual(response.data['next'], 'http://testserver/apis/trips/?limit=20&page=2')
+        self.assertIsNone(response.data['previous'])
+
+        results = response.data['results']
+        self.assertEqual(len(results), 20)
 
 
     def test_get_trips_with_fields_filter(self):

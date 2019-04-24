@@ -8,6 +8,12 @@ from django.db.models.signals import post_migrate
 from django.utils.dateparse import parse_datetime
 from django.utils.timezone import make_aware
 
+from rest_framework.pagination import PageNumberPagination
+
+class LimitPageNumberPagination(PageNumberPagination):
+    page_size_query_param = 'limit'
+    max_page_size = 1000
+
 
 def make_aware_datetime(datetime):
     return make_aware(parse_datetime(datetime))
