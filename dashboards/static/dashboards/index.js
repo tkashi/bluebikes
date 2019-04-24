@@ -158,7 +158,7 @@
                 });
                 zoom = map.getZoom();
                 circles.attr('r', d => {
-                    return d.capacity / 20 * 3 * (zoom / INITIAL_ZOOM_LEVEL) ** 2 // change circle size depending on capacity and zoom level
+                    return d.capacity / 15 * 3 * (zoom / INITIAL_ZOOM_LEVEL) ** 2 // change circle size depending on capacity and zoom level
                 });
             } 
     
