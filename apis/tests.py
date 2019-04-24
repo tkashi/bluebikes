@@ -444,6 +444,11 @@ class StationListTests(APITestCase):
         results = response.data['results']
         self.assertEqual(len(results), 6)
 
+    def test_get_stations_name_filter(self):
+        response = self.client.get('/apis/stations/', {'name': 'Fenway'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 1)
+
 
 class TripDetailTests(APITestCase):
     fixtures = ['TripDetailTests/stations', 'TripDetailTests/trips']

@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.filters import OrderingFilter
 from rest_framework.exceptions import APIException
 from rest_framework.decorators import action
-from django_filters.rest_framework import FilterSet, NumberFilter, DateFilter, DateTimeFilter, DjangoFilterBackend
+from django_filters.rest_framework import FilterSet, NumberFilter, DateFilter, DateTimeFilter, CharFilter, DjangoFilterBackend
 from .models import Station, Trip
 from .serializers import StationSerializer, TripSerializer
 
@@ -29,6 +29,8 @@ class StationFilter(FilterSet):
     """
     capacity_gt = NumberFilter(name='capacity', lookup_expr='gt')
     capacity_lt = NumberFilter(name='capacity', lookup_expr='lt')
+
+    name = CharFilter(name='name', lookup_expr='contains')
 
     class Meta:
         model = Station
