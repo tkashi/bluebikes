@@ -69,6 +69,14 @@ body {
 }
 
 /*
+ *
+ */
+.btn-toolbar > * {
+  display: none;
+}
+
+
+/*
  * Utilities
  */
 .border-bottom { 

@@ -14,15 +14,15 @@
      * 
      * @param {jQuery} $root content elements
      */
-    const showTripSummary = $root => {
+    function showTripSummary($root, filter) {
         $root.append('<svg id="myChart"></svg>')
 
         // get number of trips for each date
         $.ajax('../apis/trips/summary', {
-            data: {
+            data: $.extend({
                 group_by: 'start_date',
-                aggregate: 'count'
-            }
+                agg: 'count'
+            }, filter)
         }).done(resp => {
             // summarize by day
             data = resp.reduce(countByDay, [0, 0, 0, 0, 0, 0, 0]);
@@ -174,6 +174,27 @@
         $mainTitle = $('main').find('h1.h2');
         $sideBar = $('.sidebar');
 
+        $('#summary-filter-modal .cancel').on('hide.bs.modal', function (e) {
+            $('#summary-filter-modal').modal('hide');
+        });
+
+        $('#summary-filter-modal .submit').click(function (e) {
+            $content.empty();
+
+            showTripSummary($content, {
+                start_date_gt: $('#start-date-gt').val().replace('/', '-'),
+                start_date_lt: $('#start-date-lt').val().replace('/', '-'),
+                duration_gt: $('#duration-gt').val(),
+                duration_lt: $('#duration-lt').val(),
+                year_gt: $('#year-gt').val(),
+                year_lt: $('#year-lt').val(),
+                is_subscriber: $('#is-subscriber').prop('checked') || '',
+                gender: $('[name=gender]').val()
+            });
+
+            $('#summary-filter-modal').modal('hide');
+        });
+
         $('#station-filter-modal .cancel').on('hide.bs.modal', function (e) {
             $('#station-filter-modal').modal('hide');
         });
@@ -195,10 +216,16 @@
         });
     
         function initMain(hash, func) {
+            // activate corresponding side menu
             const $as = $sideBar.find('a.nav-link');
             $as.removeClass('active');
             const $a = $as.filter('[href="' + hash + '"]');
             $a.addClass('active');
+
+            // show corresponding filter button
+            $('.btn-toolbar').children().hide();
+            $('[data-target="' + hash + '-filter-modal"]').show();
+
             const title = $a.text().trim();
             $mainTitle.text(title);
             $content.empty();
