@@ -77,6 +77,12 @@
         });
     };
 
+    // Define the div for the tooltip
+    var tooltip = d3.select('body')
+        .append('div')
+        .attr('class', 'tooltip')
+        .style('opacity', 0);
+
 
     /**
      * Show the stations on the map.
@@ -106,7 +112,7 @@
         $.ajax('../apis/stations', {
             data: {
                 limit: 300,
-                fields: 'lat,lon,station_id,capacity'
+                fields: 'lat,lon,station_id,capacity,name'
             }
         }).done(resp => {
 
@@ -121,13 +127,29 @@
             const circles = g.selectAll("circle")
                 .data(results)
                 .enter()
-                .append("circle").attr({
+                .append("circle")
+                .attr({
                     "stroke": "black",
                     "stroke-width": 1,
                     "opacity": .7,
-                    "fill": "red"
+                    "fill": "red",
+                    "pointer-events": "visible"
+                })
+                .on('mouseover', function(d) {
+                    // show tooltip of station on mouseover
+                    tooltip.transition()		
+                        .duration(200)		
+                        .style('opacity', .9);		
+                    tooltip.html(d.name + '<br> capacity:' + d.capacity)	
+                        .style('left', (d3.event.pageX) + 'px')		
+                        .style('top', (d3.event.pageY - 28) + 'px');	
+                    })
+                .on('mouseout', function(d) {
+                    tooltip.transition()		
+                        .duration(100)		
+                        .style('opacity', 0);
                 }); 
-            
+                    
             // update every time the map is reset
             function update() {
                 circles.attr('transform', d => {
