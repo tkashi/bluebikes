@@ -9,22 +9,28 @@
         return countOfDays;
     }
 
-
+    /**
+     * Show trip summary. By default, it shows the histogram of the number of trips for each day.
+     * 
+     * @param {jQuery} $root content elements
+     */
     const showTripSummary = $root => {
         $root.append('<svg id="myChart"></svg>')
 
+        // get number of trips for each date
         $.ajax('../apis/trips/summary', {
             data: {
                 group_by: 'start_date',
                 aggregate: 'count'
             }
         }).done(resp => {
+            // summarize by day
             data = resp.reduce(countByDay, [0, 0, 0, 0, 0, 0, 0]);
 
-                    
             const width = $root.width() - MARGIN.left - MARGIN.right;
             const height = 400 - MARGIN.top - MARGIN.bottom;
     
+            // show bar chart
             const svg = d3.select("#myChart")
                 .attr("width", width + MARGIN.left + MARGIN.right)
                 .attr("height", height + MARGIN.top + MARGIN.bottom)
@@ -40,6 +46,7 @@
             const xAxis = d3.svg.axis().scale(x).orient("bottom");
             const yAxis = d3.svg.axis().scale(y).orient("left").ticks(10);
     
+            // xAxis
             svg.append("g")
                 .attr("class", "x axis")
                 .attr("transform", "translate(0," + height + ")")
@@ -49,6 +56,7 @@
                 .attr("dx", "-.8em")
                 .attr("transform", "rotate(-45)" );
     
+            // yAxis
             svg.append("g")
                 .attr("class", "y axis")
                 .call(yAxis)
@@ -57,6 +65,7 @@
                 .style("text-anchor", "end")
                 .text("# of trips");
     
+            // bars
             svg.selectAll("bar")
                 .data(data)
                 .enter().append("rect")
