@@ -1,12 +1,30 @@
 (function() {
     
     const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-    const MARGIN = {top: 20, right: 20, bottom: 70, left: 50};
+    const MARGIN = {top: 20, right: 20, bottom: 70, left: 60};
 
-    const countByDay = (countOfDays, countOfDate) => {
-        day = new Date(countOfDate.start_date).getDay();
-        countOfDays[day] += countOfDate.count;
-        return countOfDays;
+    const summarize_funcs = {
+        count: (countOfDays, countOfDate) => {
+            day = new Date(countOfDate.start_date).getDay();
+            countOfDays[day] += countOfDate.count;
+            return countOfDays;
+        },
+        max: (maxOfDays, maxOfDate) => {
+            day = new Date(maxOfDate.start_date).getDay();
+            maxOfDays[day] = Math.max(maxOfDate.max_duration, maxOfDays[day]);
+            return maxOfDays;
+        },
+        min: (minOfDays, minOfDate) => {
+            day = new Date(minOfDate.start_date).getDay();
+            // assume that every day has some trips
+            minOfDays[day] =  minOfDays[day] == 0 ? minOfDate.min_duration: Math.min(minOfDate.min_duration, minOfDays[day]);
+            return minOfDays;
+        },
+        sum: (sumOfDays, sumOfDate) => {
+            day = new Date(sumOfDate.start_date).getDay();
+            sumOfDays[day] = sumOfDate.sum_duration + sumOfDays[day];
+            return sumOfDays;
+        }
     }
 
     /**
@@ -17,15 +35,18 @@
     function showTripSummary($root, filter) {
         $root.append('<svg id="myChart"></svg>')
 
-        // get number of trips for each date
+        const agg = $('#summary-agg').val();
+
+        // get summary of trips for each date
         $.ajax('../apis/trips/summary', {
             data: $.extend({
                 group_by: 'start_date',
-                agg: 'count'
+                agg: agg,
+                field: 'duration'
             }, filter)
         }).done(resp => {
             // summarize by day
-            data = resp.reduce(countByDay, [0, 0, 0, 0, 0, 0, 0]);
+            data = resp.reduce(summarize_funcs[agg], [0, 0, 0, 0, 0, 0, 0]);
 
             const width = $root.width() - MARGIN.left - MARGIN.right;
             const height = 400 - MARGIN.top - MARGIN.bottom;
@@ -63,7 +84,7 @@
                 .append("text")
                 .attr("y", -10)
                 .style("text-anchor", "end")
-                .text("# of trips");
+                .text($('#summary-agg').children('[value=' + agg + ']').text());
     
             // bars
             svg.selectAll("bar")
