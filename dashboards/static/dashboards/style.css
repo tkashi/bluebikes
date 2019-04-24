@@ -89,3 +89,10 @@ body {
   stroke: #000;
   shape-rendering: crispEdges;
 }
+
+/*
+ * stations map
+ */
+#map {
+  height: 500px;
+}

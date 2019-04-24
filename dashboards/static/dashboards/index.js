@@ -9,7 +9,10 @@
         return countOfDays;
     }
 
-    showTripSummary = () => {
+
+    const showTripSummary = $root => {
+        $root.append('<svg id="myChart"></svg>')
+
         $.ajax('../apis/trips/summary', {
             data: {
                 group_by: 'start_date',
@@ -17,9 +20,9 @@
             }
         }).done(resp => {
             data = resp.reduce(countByDay, [0, 0, 0, 0, 0, 0, 0]);
-    
-            
-            const width = $('main').width() - MARGIN.left - MARGIN.right;
+
+                    
+            const width = $root.width() - MARGIN.left - MARGIN.right;
             const height = 400 - MARGIN.top - MARGIN.bottom;
     
             const svg = d3.select("#myChart")
@@ -63,9 +66,96 @@
                 .attr("y", d => { return y(d); })
                 .attr("height", d => { return height - y(d); });
         });
-    }
+    };
+
+    function projectPoint(x, y) {
+        const point = map.latLngToLayerPoint(new L.LatLng(y, x));
+        this.stream.point(point.x, point.y);
+      }
+
+    const showStationsMap = $root => {
+        const INITIAL_ZOOM_LEVEL = 13
+
+        const $map = $('<p id="map"></p>')
+        $map.width($root.width())
+        $root.append($map);
+        
+        const map = new L.Map($map[0], {center: [42.36, -71.05], zoom: INITIAL_ZOOM_LEVEL}).addLayer(new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'));
+        L.svg().addTo(map);	
+        
+        const svg = d3.select('#map').select('svg');
+        const g = svg.append('g').attr('class', 'leaflet-zoom-hide');
+
+        $.ajax('../apis/stations', {
+            data: {
+                limit: 300,
+                fields: 'lat,lon,station_id,capacity'
+            }
+        }).done(resp => {
+
+            const results = resp['results'];
+            results.forEach(function(d){
+                d.LatLngObj = new L.LatLng(d.lat, d.lon);
+            });
+
+            const circles = g.selectAll("circle")
+                .data(results)
+                .enter()
+                .append("circle").attr({
+                    "stroke": "black",
+                    "stroke-width": 1,
+                    "opacity": .7,
+                    "fill": "red"
+                }); 
+            
+            function update() {
+                circles.attr('transform', d => {
+                    const point = map.latLngToLayerPoint(d.LatLngObj)
+                    return `translate(${point.x}, ${point.y})`
+                });
+                zoom = map.getZoom();
+                circles.attr('r', d => {
+                    return d.capacity / 20 * 3 * (zoom / INITIAL_ZOOM_LEVEL) ** 2
+                });
+            } 
+    
+            map.on('moveend', update);
+     
+            update();
+        });
+
+    };
+
 
     $(function() {
-        showTripSummary();
+        $content = $('#content');
+        $mainTitle = $('main').find('h1.h2');
+        $sideBar = $('.sidebar');
+
+        function initMain(hash, func) {
+            const $as = $sideBar.find('a.nav-link');
+            $as.removeClass('active');
+            const $a = $as.filter('[href="' + hash + '"]');
+            $a.addClass('active');
+            const title = $a.text().trim();
+            $mainTitle.text(title);
+            $content.empty();
+            func($content)
+        }
+
+        const  hashChangeHandler = e => {
+            switch (location.hash) {
+                case '':
+                case '#summary':
+                    initMain('#summary', showTripSummary);
+                    break;
+                case '#stations':
+                    initMain('#stations', showStationsMap);
+                    break;
+            }
+        };
+
+        hashChangeHandler();
+        window.addEventListener('hashchange', hashChangeHandler);
     })
 })();
