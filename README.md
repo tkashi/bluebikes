@@ -70,6 +70,7 @@ python manage.py test
 
 * [jQuery](https://jquery.com/) - The JavaScript library to make client development much simpler with an easy-to-use API
 * [d3.js](https://d3js.org/) - The JavaScript library for manipulating documents based on data
+* [Leaflet](https://leafletjs.com/) - The JavaScript map library
 * [Bootstrap](https://getbootstrap.com/) - The front-end component library: the design of this dashboard is based on its [example](https://getbootstrap.com/docs/4.3/examples/dashboard/).
 * [Font Awesome](https://fontawesome.com/) - The icon set and toolkit
 
